@@ -34,6 +34,10 @@ export default function Hero({ onShopClick }) {
 
       {/* ── Contenido ── */}
       <div className={styles.content}>
+       {/* Catchphrase oficial */}
+        <p className={styles.catchphrase}>
+          De otra semilla. Del mismo amor.
+        </p>
 
         {/* Eyebrow — categoría / descriptor */}
         <p className={styles.eyebrow}>
@@ -48,11 +52,7 @@ export default function Hero({ onShopClick }) {
           y un sabor único
         </h1>
 
-        {/* Catchphrase oficial */}
-        <p className={styles.catchphrase}>
-          De otra semilla. Del mismo amor.
-        </p>
-
+ 
         {/* CTAs */}
         <div className={styles.actions}>
           <a
