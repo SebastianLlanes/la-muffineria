@@ -53,18 +53,6 @@ export default function Hero({ onShopClick }) {
           De otra semilla. Del mismo amor.
         </p>
 
-        {/* Highlights de propuesta de valor */}
-        {/* <ul className={styles.highlights} aria-label="Destacados">
-          <li className={styles.highlight}>
-            <span className={styles.highlightIcon} aria-hidden="true">🌾</span>
-            Sin harinas refinadas
-          </li>
-          <li className={styles.highlight}>
-            <span className={styles.highlightIcon} aria-hidden="true">🚫</span>
-            Sin conservantes
-          </li>
-        </ul> */}
-
         {/* CTAs */}
         <div className={styles.actions}>
           <a
