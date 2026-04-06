@@ -38,19 +38,20 @@ export default function About() {
   return (
     <section id="nosotros" className={styles.section}>
       <div className={styles.container}>
-
         {/* ── Encabezado ── */}
         <div ref={headerRef} className={`${styles.header} reveal`}>
           <span className={styles.tag}>Nuestra historia</span>
           <h2 className={styles.title}>
-            Comer rico <em>y</em> comer bien<br />no son opuestos
+            Comer rico <em>y</em> comer bien
+            <br />
+            no son opuestos
           </h2>
           <p className={styles.story}>
-            La Muffinería nació en San Carlos Centro de una idea simple: ¿por qué
-            los productos saludables tienen que ser aburridos? Empezamos
-            experimentando en casa con harinas alternativas, buscando texturas
-            y sabores que de verdad enamoren. Lo que empezó como un hobby
-            se convirtió en un pequeño gran proyecto familiar.
+            La Muffinería nació en San Carlos Centro de una idea simple: ¿por
+            qué los productos saludables tienen que ser aburridos? Empezamos
+            experimentando en casa con harinas alternativas, buscando texturas y
+            sabores que de verdad enamoren. Lo que empezó como un hobby se
+            convirtió en un pequeño gran proyecto familiar.
           </p>
           <p className={styles.story}>
             Hoy horneamos por encargo, con ingredientes reales, sin conservantes
@@ -59,9 +60,36 @@ export default function About() {
           </p>
         </div>
 
+        {/* ── Mapa + origen ── */}
+        <div className={styles.mapBlock}>
+          <div className={styles.mapImageWrapper}>
+            <img
+              src="/images/an-carlos-centro.png"
+              alt="Mapa de San Carlos Centro, Santa Fe — origen de La Muffinería"
+              className={styles.mapImage}
+              loading="lazy"
+            />
+          </div>
+          <div className={styles.mapCaption}>
+            <span className={styles.mapPin} aria-hidden="true">
+              📍
+            </span>
+            <div>
+              <p className={styles.mapTitle}>San Carlos Centro, Santa Fe</p>
+              <p className={styles.mapSubtitle}>
+                Elaborado en casa, con amor local.
+              </p>
+            </div>
+          </div>
+        </div>
+
         {/* ── Cards de valores ── */}
-        <ul ref={sectionRef} className={`${styles.values} reveal`} aria-label="Nuestros valores">
-          {VALUES.map(function(value, index) {
+        <ul
+          ref={sectionRef}
+          className={`${styles.values} reveal`}
+          aria-label="Nuestros valores"
+        >
+          {VALUES.map(function (value, index) {
             return (
               <li
                 key={value.title}
@@ -74,7 +102,7 @@ export default function About() {
                 <h3 className={styles.valueTitle}>{value.title}</h3>
                 <p className={styles.valueDescription}>{value.description}</p>
               </li>
-            )
+            );
           })}
         </ul>
 
@@ -86,8 +114,7 @@ export default function About() {
           </p>
           <div className={styles.closingLine} aria-hidden="true" />
         </div>
-
       </div>
     </section>
-  )
+  );
 }
