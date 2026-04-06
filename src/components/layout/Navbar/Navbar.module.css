@@ -48,10 +48,10 @@
 .logo {
  display: flex;
     align-items: center;
-    gap: var(--space-6);
+    gap: var(--space-4);
     margin-left: 20px;
     text-decoration: none;
-    flex-shrink: 0;
+    flex-shrink: 1;
   /* En mobile el logo está centrado gracias a justify-content: space-between
      con hamburger a la izquierda y cart a la derecha */
 }
@@ -60,7 +60,7 @@
 .logoImage {
   margin: 0;
   padding: 0;
-  width: 3%;
+  width: 16%;
 }
 .logoText {
   font-family: var(--font-display);
