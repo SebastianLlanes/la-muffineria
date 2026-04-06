@@ -227,7 +227,6 @@
 /* ── CTAs ── */
 .actions {
   display: flex;
-  flex-wrap: wrap;
   gap: var(--space-3);
   justify-content: center;
 }
@@ -241,7 +240,7 @@
 .ctaPrimary {
   display: inline-flex;
   align-items: center;
-  padding: var(--space-3) var(--space-8);
+  padding: var(--space-3) var(--space-6);
   border-radius: var(--radius-xl);
   font-family: var(--font-body);
   font-size: var(--text-base);
@@ -390,15 +389,27 @@
 }
 
 .floatCardTop {
-  top: 10px;
-  right: -10px;
+  top: 14px;
+  right: -48px;
   animation: floatUp 5s ease-in-out infinite;
 }
 
 .floatCardBottom {
-  bottom: 20px;
-  left: -10px;
+  bottom: 18px;
+  left: -42px;
   animation: floatUp 5s ease-in-out infinite 1.5s;
+}
+.floatCardTopLeft {
+  top: 10px;
+  left: -38px;
+  transform: translateY(-50%);
+  animation: floatUp 5s ease-in-out infinite 3s;
+}
+.floatCardBottomRight {
+  bottom: 20px;
+  right: -28px;
+  transform: translateY(50%);
+  animation: floatUp 5s ease-in-out infinite 4.5s;
 }
 
 @keyframes floatUp {

@@ -54,7 +54,7 @@ export default function Hero({ onShopClick }) {
         </p>
 
         {/* Highlights de propuesta de valor */}
-        <ul className={styles.highlights} aria-label="Destacados">
+        {/* <ul className={styles.highlights} aria-label="Destacados">
           <li className={styles.highlight}>
             <span className={styles.highlightIcon} aria-hidden="true">🌾</span>
             Sin harinas refinadas
@@ -63,11 +63,7 @@ export default function Hero({ onShopClick }) {
             <span className={styles.highlightIcon} aria-hidden="true">🚫</span>
             Sin conservantes
           </li>
-          <li className={styles.highlight}>
-            <span className={styles.highlightIcon} aria-hidden="true">✅</span>
-            Opción sin TACC
-          </li>
-        </ul>
+        </ul> */}
 
         {/* CTAs */}
         <div className={styles.actions}>
@@ -96,12 +92,20 @@ export default function Hero({ onShopClick }) {
 
         {/* Tarjetitas flotantes */}
         <div className={`${styles.floatCard} ${styles.floatCardTop}`}>
-          <span className={styles.floatCardIcon}>🌿</span>
-          <span className={styles.floatCardText}>100% natural</span>
+          <span className={styles.floatCardIcon}>🌾</span>
+          <span className={styles.floatCardText}>Sin harinas refinadas</span>
         </div>
         <div className={`${styles.floatCard} ${styles.floatCardBottom}`}>
           <span className={styles.floatCardIcon}>💚</span>
           <span className={styles.floatCardText}>Pedido por WhatsApp</span>
+        </div>
+        <div className={`${styles.floatCard} ${styles.floatCardTopLeft}`}>
+          <span className={styles.floatCardIcon}>✅</span>
+          <span className={styles.floatCardText}>Opción sin TACC</span>
+        </div>
+        <div className={`${styles.floatCard} ${styles.floatCardBottomRight}`}>
+          <span className={styles.floatCardIcon}>🌿</span>
+          <span className={styles.floatCardText}>100% natural</span>
         </div>
       </div>
 
