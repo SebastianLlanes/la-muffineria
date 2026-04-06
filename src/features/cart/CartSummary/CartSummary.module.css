@@ -1,0 +1,165 @@
+.summary {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+
+/* ── Nota ── */
+.noteSection {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.noteLabel {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: var(--font-semibold);
+  color: var(--text-primary);
+}
+
+.noteLabelOptional {
+  font-weight: var(--font-regular);
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+}
+
+.noteInput {
+  width: 100%;
+  padding: var(--space-3) var(--space-4);
+  border: 1.5px solid var(--border-default);
+  border-radius: var(--radius-lg);
+  background-color: var(--bg-surface);
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  color: var(--text-primary);
+  line-height: var(--leading-relaxed);
+  resize: vertical;
+  min-height: 80px;
+  transition: border-color var(--transition-fast);
+}
+
+.noteInput::placeholder {
+  color: var(--text-muted);
+}
+
+.noteInput:focus {
+  outline: none;
+  border-color: var(--brand-primary);
+}
+
+.noteCounter {
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+  text-align: right;
+}
+
+
+/* ── Totales ── */
+.totals {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  background-color: var(--color-trigo-50);
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--border-light);
+}
+
+.totalRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+}
+
+.totalLabel {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+}
+
+.totalValue {
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  font-weight: var(--font-bold);
+  color: var(--brand-primary);
+}
+
+.shippingNote {
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+  line-height: var(--leading-relaxed);
+  padding-top: var(--space-2);
+  border-top: 1px solid var(--border-light);
+}
+
+
+/* ── Botón WhatsApp ── */
+.whatsappBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+  width: 100%;
+  padding: var(--space-4) var(--space-6);
+  border-radius: var(--radius-xl);
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  font-weight: var(--font-bold);
+  background-color: #25D366;
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
+  letter-spacing: 0.01em;
+  box-shadow: 0 4px 16px rgba(37, 211, 102, 0.35);
+  transition:
+    background-color var(--transition-fast),
+    transform var(--transition-spring),
+    box-shadow var(--transition-fast);
+}
+
+.whatsappBtn:hover:not(:disabled) {
+  background-color: #1ebe5a;
+  box-shadow: 0 6px 20px rgba(37, 211, 102, 0.45);
+}
+
+.whatsappBtn:active:not(:disabled) {
+  transform: scale(0.97);
+}
+
+.whatsappBtn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.sending {
+  background-color: #1ebe5a;
+}
+
+
+/* ── Spinner ── */
+.spinner {
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+
+/* ── Disclaimer ── */
+.disclaimer {
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+  text-align: center;
+  line-height: var(--leading-relaxed);
+}

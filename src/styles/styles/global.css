@@ -1,0 +1,265 @@
+/*
+ * =====================================================
+ *  LA MUFFINERÍA — Global Styles
+ *  global.css
+ *
+ *  Importar UNA SOLA VEZ en main.jsx:
+ *    import './styles/global.css'
+ *
+ *  Contiene:
+ *  1. Import de variables
+ *  2. Reset moderno
+ *  3. Base styles (html, body, tipografía base)
+ *  4. Clases utilitarias mínimas
+ *  5. Animaciones globales
+ * =====================================================
+ */
+
+@import './variables.css';
+
+
+/* --------------------------------------------------
+ * 1. RESET MODERNO
+ * -------------------------------------------------- */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  /* Scroll suave global */
+  scroll-behavior: smooth;
+  /* Evitar zoom en inputs en iOS */
+  -webkit-text-size-adjust: 100%;
+  /* Soporte para safe areas en notch / home indicator */
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  font-weight: var(--font-regular);
+  line-height: var(--leading-normal);
+  color: var(--text-primary);
+  background-color: var(--bg-page);
+
+  /* Renderizado de fuentes más nítido */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  /* Evitar overflow horizontal en mobile */
+  overflow-x: hidden;
+
+  /* Padding top por el navbar fijo */
+  padding-top: var(--navbar-height);
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  overflow-wrap: break-word;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+
+/* --------------------------------------------------
+ * 2. TIPOGRAFÍA BASE
+ * -------------------------------------------------- */
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  line-height: var(--leading-tight);
+  font-weight: var(--font-bold);
+  color: var(--text-primary);
+}
+
+h1 { font-size: var(--text-3xl); }
+h2 { font-size: var(--text-2xl); }
+h3 { font-size: var(--text-xl); }
+h4 { font-size: var(--text-lg); }
+h5 { font-size: var(--text-base); }
+h6 { font-size: var(--text-sm); }
+
+/* Desktop: headings más grandes */
+@media (min-width: 768px) {
+  h1 { font-size: var(--text-5xl); }
+  h2 { font-size: var(--text-4xl); }
+  h3 { font-size: var(--text-3xl); }
+  h4 { font-size: var(--text-2xl); }
+}
+
+
+/* --------------------------------------------------
+ * 3. CONTENEDOR GLOBAL
+ * -------------------------------------------------- */
+
+.container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--container-px);
+  padding-right: var(--container-px);
+}
+
+
+/* --------------------------------------------------
+ * 4. SECCIÓN GENÉRICA
+ * -------------------------------------------------- */
+
+.section {
+  padding-top: var(--space-12);
+  padding-bottom: var(--space-12);
+}
+
+@media (min-width: 768px) {
+  .section {
+    padding-top: var(--space-20);
+    padding-bottom: var(--space-20);
+  }
+}
+
+
+/* --------------------------------------------------
+ * 5. CLASES UTILITARIAS MÍNIMAS
+ * No reemplazar con una librería entera — solo lo que
+ * realmente se repite y no justifica un módulo propio.
+ * -------------------------------------------------- */
+
+/* Visualmente oculto pero accesible para screen readers */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* Truncar texto con ellipsis */
+.truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Overlay para modales y drawers */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(36, 22, 16, 0.5);
+  backdrop-filter: blur(2px);
+  z-index: var(--z-overlay);
+}
+
+
+/* --------------------------------------------------
+ * 6. ANIMACIONES GLOBALES
+ * -------------------------------------------------- */
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInRight {
+  from { transform: translateX(100%); }
+  to   { transform: translateX(0); }
+}
+
+@keyframes slideInBottom {
+  from { transform: translateY(100%); }
+  to   { transform: translateY(0); }
+}
+
+@keyframes slideOutRight {
+  from { transform: translateX(0); }
+  to   { transform: translateX(100%); }
+}
+
+@keyframes slideOutBottom {
+  from { transform: translateY(0); }
+  to   { transform: translateY(100%); }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50%       { transform: scale(1.05); }
+}
+
+/* Respetar preferencia del usuario por menos movimiento */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

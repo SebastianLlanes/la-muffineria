@@ -1,0 +1,239 @@
+/*
+ * =====================================================
+ *  LA MUFFINERÍA — Design Tokens
+ *  variables.css
+ *
+ *  Importar en global.css con @import './variables.css'
+ *  NO importar directamente en componentes.
+ *  Los CSS Modules acceden a estas variables porque
+ *  están definidas en :root (alcance global).
+ * =====================================================
+ */
+
+:root {
+
+  /* --------------------------------------------------
+   * PALETA DE COLOR — La Muffinería
+   * -------------------------------------------------- */
+
+  /* Verde Oliva — color primario / identidad */
+  --color-oliva-50:   #F0F2EB;
+  --color-oliva-100:  #D6DECA;
+  --color-oliva-200:  #B4C19E;
+  --color-oliva-400:  #8A9B6A;
+  --color-oliva:      #6B7A4E;   /* ← token principal */
+  --color-oliva-600:  #556040;
+  --color-oliva-800:  #3A4430;
+  --color-oliva-900:  #242B1E;
+
+  /* Rosa Viejo — acento suave / femenino */
+  --color-rosa-50:    #FAF2EE;
+  --color-rosa-100:   #F0D8CC;
+  --color-rosa-200:   #E2B9A6;
+  --color-rosa-400:   #CD9078;
+  --color-rosa:       #B8735A;   /* ← token principal */
+  --color-rosa-600:   #975E47;
+  --color-rosa-800:   #6B4132;
+  --color-rosa-900:   #422820;
+
+  /* Trigo — backgrounds cálidos / neutros cálidos */
+  --color-trigo-50:   #FDFAF3;
+  --color-trigo-100:  #F8F0DC;
+  --color-trigo-200:  #EFE0C0;
+  --color-trigo-400:  #DECA96;
+  --color-trigo:      #C9B070;   /* ← token principal */
+  --color-trigo-600:  #A8903A;
+  --color-trigo-800:  #7A6828;
+  --color-trigo-900:  #4C4018;
+
+  /* Cacao — textos oscuros / contrastes */
+  --color-cacao-50:   #F5F0EE;
+  --color-cacao-100:  #E0D0CC;
+  --color-cacao-200:  #C4A89E;
+  --color-cacao-400:  #9A7260;
+  --color-cacao:      #7A5240;   /* ← token principal */
+  --color-cacao-600:  #5C3D2E;
+  --color-cacao-800:  #3E281E;
+  --color-cacao-900:  #241610;
+
+  /* Crema — backgrounds principales / fondos */
+  --color-crema-50:   #FFFFFF;
+  --color-crema:      #FDF8F0;   /* ← token principal */
+  --color-crema-100:  #F5EDE0;
+  --color-crema-200:  #EAD8C0;
+  --color-crema-400:  #D4BB98;
+
+  /* Colores semánticos — feedback / estado */
+  --color-success:    #4CAF50;
+  --color-warning:    #FF9800;
+  --color-error:      #E53935;
+  --color-info:       #1976D2;
+
+
+  /* --------------------------------------------------
+   * TIPOGRAFÍA
+   * -------------------------------------------------- */
+
+  /* Familias */
+  --font-display:   'Macondo', Georgia, serif;
+  --font-body:      'Montserrat', system-ui, sans-serif;
+
+  /* Scale — Mobile First (base 16px) */
+  --text-xs:    0.75rem;    /* 12px */
+  --text-sm:    0.875rem;   /* 14px */
+  --text-base:  1rem;       /* 16px */
+  --text-lg:    1.125rem;   /* 18px */
+  --text-xl:    1.25rem;    /* 20px */
+  --text-2xl:   1.5rem;     /* 24px */
+  --text-3xl:   1.875rem;   /* 30px */
+  --text-4xl:   2.25rem;    /* 36px */
+  --text-5xl:   3rem;       /* 48px */
+
+  /* Pesos */
+  --font-light:    300;
+  --font-regular:  400;
+  --font-medium:   500;
+  --font-semibold: 600;
+  --font-bold:     700;
+
+  /* Line heights */
+  --leading-tight:  1.25;
+  --leading-snug:   1.375;
+  --leading-normal: 1.5;
+  --leading-relaxed:1.625;
+
+
+  /* --------------------------------------------------
+   * ESPACIADO — escala de 4px
+   * -------------------------------------------------- */
+
+  --space-1:   0.25rem;   /* 4px  */
+  --space-2:   0.5rem;    /* 8px  */
+  --space-3:   0.75rem;   /* 12px */
+  --space-4:   1rem;      /* 16px */
+  --space-5:   1.25rem;   /* 20px */
+  --space-6:   1.5rem;    /* 24px */
+  --space-8:   2rem;      /* 32px */
+  --space-10:  2.5rem;    /* 40px */
+  --space-12:  3rem;      /* 48px */
+  --space-16:  4rem;      /* 64px */
+  --space-20:  5rem;      /* 80px */
+  --space-24:  6rem;      /* 96px */
+
+
+  /* --------------------------------------------------
+   * BORDER RADIUS
+   * -------------------------------------------------- */
+
+  --radius-sm:   4px;
+  --radius-md:   8px;
+  --radius-lg:   12px;
+  --radius-xl:   16px;
+  --radius-2xl:  24px;
+  --radius-full: 9999px;
+
+
+  /* --------------------------------------------------
+   * SOMBRAS
+   * -------------------------------------------------- */
+
+  --shadow-sm:  0 1px 3px rgba(90, 60, 40, 0.08);
+  --shadow-md:  0 4px 12px rgba(90, 60, 40, 0.12);
+  --shadow-lg:  0 8px 24px rgba(90, 60, 40, 0.16);
+  --shadow-xl:  0 16px 40px rgba(90, 60, 40, 0.20);
+
+
+  /* --------------------------------------------------
+   * TRANSICIONES
+   * -------------------------------------------------- */
+
+  --transition-fast:    150ms ease;
+  --transition-base:    250ms ease;
+  --transition-slow:    400ms ease;
+  --transition-spring:  350ms cubic-bezier(0.34, 1.56, 0.64, 1);
+
+
+  /* --------------------------------------------------
+   * BREAKPOINTS — como referencia en JS si se necesita
+   * (en CSS usar directamente los valores en @media)
+   *
+   *  mobile:   < 480px   (default, mobile-first)
+   *  tablet:  >= 768px   @media (min-width: 768px)
+   *  desktop: >= 1024px  @media (min-width: 1024px)
+   *  wide:    >= 1280px  @media (min-width: 1280px)
+   * -------------------------------------------------- */
+
+
+  /* --------------------------------------------------
+   * LAYOUT
+   * -------------------------------------------------- */
+
+  --container-max:    1200px;
+  --container-px:     var(--space-4);    /* padding horizontal mobile */
+  --navbar-height:    60px;
+
+
+  /* --------------------------------------------------
+   * Z-INDEX — evitar "z-index wars"
+   * -------------------------------------------------- */
+
+  --z-base:     1;
+  --z-above:    10;
+  --z-dropdown: 100;
+  --z-sticky:   200;
+  --z-overlay:  300;
+  --z-drawer:   400;
+  --z-modal:    500;
+  --z-toast:    600;
+
+
+  /* --------------------------------------------------
+   * ALIASES SEMÁNTICOS — usar estos en los componentes
+   * Son los que usarías en el día a día de desarrollo.
+   * Cambiando solo estos podés hacer un "dark mode" o
+   * un reskin sin tocar ningún componente.
+   * -------------------------------------------------- */
+
+  /* Backgrounds */
+  --bg-page:        var(--color-crema);
+  --bg-surface:     var(--color-crema-50);
+  --bg-muted:       var(--color-trigo-50);
+  --bg-inverse:     var(--color-cacao-800);
+
+  /* Textos */
+  --text-primary:   var(--color-cacao-800);
+  --text-secondary: var(--color-cacao-600);
+  --text-muted:     var(--color-cacao-400);
+  --text-inverse:   var(--color-crema);
+  --text-brand:     var(--color-oliva);
+  --text-accent:    var(--color-rosa);
+
+  /* Bordes */
+  --border-light:   var(--color-trigo-200);
+  --border-default: var(--color-trigo-400);
+  --border-strong:  var(--color-cacao-200);
+
+  /* Brand */
+  --brand-primary:  var(--color-oliva);
+  --brand-secondary:var(--color-rosa);
+  --brand-warm:     var(--color-trigo);
+  --brand-dark:     var(--color-cacao);
+  --brand-bg:       var(--color-crema);
+}
+
+/* --------------------------------------------------
+ * Desktop overrides — ajustes de escala para pantallas
+ * grandes. Mobile-first: estos se aplican encima.
+ * -------------------------------------------------- */
+@media (min-width: 768px) {
+  :root {
+    --container-px: var(--space-8);
+    --navbar-height: 72px;
+  }
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --container-px: var(--space-12);
+  }
+}

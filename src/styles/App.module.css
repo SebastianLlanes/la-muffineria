@@ -1,0 +1,51 @@
+.app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.heroPlaceholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100vh - var(--navbar-height));
+  text-align: center;
+  padding: var(--space-8) var(--container-px);
+  gap: var(--space-4);
+  background-color: var(--bg-page);
+}
+
+.heroPlaceholder h1 {
+  color: var(--brand-primary);
+}
+
+.heroPlaceholder p {
+  color: var(--text-secondary);
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+}
+
+.sectionPlaceholder {
+  min-height: 40vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-16) var(--container-px);
+}
+
+.sectionAlt {
+  background-color: var(--color-trigo-50);
+}
+
+.comingSoon {
+  color: var(--text-muted);
+  font-size: var(--text-sm);
+  font-style: italic;
+}

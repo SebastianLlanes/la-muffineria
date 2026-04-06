@@ -1,0 +1,277 @@
+/*
+ * ProductCard.module.css — Mobile first
+ *
+ * Layout de la card:
+ *   [imagen]
+ *   [nombre]
+ *   [descripción]
+ *   [tags]
+ *   [toggle sin TACC (si aplica)]
+ *   [precio | botón agregar]
+ */
+
+/* ── Card contenedor ── */
+.card {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg-surface);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border-light);
+  transition:
+    transform var(--transition-base),
+    box-shadow var(--transition-base);
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+.unavailable {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.unavailable:hover {
+  transform: none;
+  box-shadow: var(--shadow-sm);
+}
+
+
+/* ── Imagen ── */
+.imageWrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  background-color: var(--color-trigo-50);
+  overflow: hidden;
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--transition-slow);
+}
+
+.card:hover .image {
+  transform: scale(1.04);
+}
+
+/* Chips sobre la imagen */
+.chipUnavailable,
+.chipSpecial {
+  position: absolute;
+  top: var(--space-3);
+  left: var(--space-3);
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-full);
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  font-weight: var(--font-semibold);
+  letter-spacing: 0.02em;
+}
+
+.chipUnavailable {
+  background-color: var(--color-cacao-800);
+  color: var(--color-crema);
+}
+
+.chipSpecial {
+  background-color: var(--color-oliva);
+  color: var(--color-crema);
+}
+
+
+/* ── Body (contenido de texto) ── */
+.body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: var(--space-4);
+  gap: var(--space-3);
+}
+
+@media (min-width: 768px) {
+  .body {
+    padding: var(--space-5);
+  }
+}
+
+
+/* ── Nombre ── */
+.name {
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  font-weight: var(--font-bold);
+  color: var(--text-primary);
+  line-height: var(--leading-snug);
+  margin: 0;
+}
+
+
+/* ── Descripción ── */
+.description {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+  line-height: var(--leading-relaxed);
+  margin: 0;
+
+  /* Máximo 3 líneas con ellipsis */
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+
+/* ── Tags ── */
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.tag {
+  padding: 2px var(--space-2);
+  border-radius: var(--radius-full);
+  font-family: var(--font-body);
+  font-size: 10px;
+  font-weight: var(--font-semibold);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.tagGlutenFree {
+  background-color: var(--color-oliva-50);
+  color: var(--color-oliva-600);
+  border: 1px solid var(--color-oliva-200);
+}
+
+.tagVegan {
+  background-color: var(--color-trigo-50);
+  color: var(--color-trigo-600);
+  border: 1px solid var(--color-trigo-200);
+}
+
+.tagSugar {
+  background-color: var(--color-rosa-50);
+  color: var(--color-rosa-600);
+  border: 1px solid var(--color-rosa-200);
+}
+
+
+/* ── Toggle Estándar / Sin TACC ── */
+.glutenToggle {
+  display: flex;
+  background-color: var(--color-trigo-50);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-lg);
+  padding: 3px;
+  gap: 3px;
+}
+
+.toggleBtn {
+  flex: 1;
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-md);
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  font-weight: var(--font-semibold);
+  color: var(--text-muted);
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition:
+    background-color var(--transition-fast),
+    color var(--transition-fast),
+    box-shadow var(--transition-fast);
+}
+
+.toggleActive {
+  background-color: var(--bg-surface);
+  color: var(--brand-primary);
+  box-shadow: var(--shadow-sm);
+}
+
+
+/* ── Footer: precio + botón ── */
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  margin-top: auto;
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--border-light);
+}
+
+.priceBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.price {
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  font-weight: var(--font-bold);
+  color: var(--brand-primary);
+  line-height: 1;
+}
+
+.priceBase {
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+}
+
+
+/* ── Botón agregar ── */
+.addButton {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-lg);
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: var(--font-semibold);
+  background-color: var(--brand-primary);
+  color: var(--color-crema);
+  border: none;
+  cursor: pointer;
+  white-space: nowrap;
+  transition:
+    background-color var(--transition-fast),
+    transform var(--transition-spring),
+    opacity var(--transition-fast);
+}
+
+.addButton:hover:not(:disabled) {
+  background-color: var(--color-oliva-600);
+}
+
+.addButton:active:not(:disabled) {
+  transform: scale(0.94);
+}
+
+.addButton:disabled {
+  background-color: var(--color-cacao-200);
+  color: var(--color-cacao-400);
+  cursor: not-allowed;
+}
+
+/* Estado "¡Agregado!" */
+.addButtonSuccess {
+  background-color: var(--color-oliva-600) !important;
+  animation: successPop var(--transition-spring) both;
+}
+
+@keyframes successPop {
+  0%   { transform: scale(0.92); }
+  60%  { transform: scale(1.06); }
+  100% { transform: scale(1); }
+}

@@ -1,0 +1,147 @@
+/*
+ * ProductGrid.module.css — Mobile first
+ *
+ * Grilla:
+ *   Mobile  (default): 1 columna
+ *   Tablet  (480px+):  2 columnas
+ *   Desktop (1024px+): 3 columnas
+ */
+
+.section {
+  padding-top: var(--space-16);
+  padding-bottom: var(--space-16);
+  background-color: var(--color-trigo-50);
+}
+
+@media (min-width: 768px) {
+  .section {
+    padding-top: var(--space-20);
+    padding-bottom: var(--space-20);
+  }
+}
+
+.container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+}
+
+
+/* ── Encabezado ── */
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--space-4);
+  padding: 0 var(--container-px);
+}
+
+.title {
+  font-family: var(--font-display);
+  font-size: var(--text-3xl);
+  font-weight: var(--font-bold);
+  color: var(--text-primary);
+  margin: 0;
+}
+
+@media (min-width: 768px) {
+  .title {
+    font-size: var(--text-4xl);
+  }
+}
+
+.subtitle {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  color: var(--text-secondary);
+  line-height: var(--leading-relaxed);
+  max-width: 520px;
+  margin: 0;
+}
+
+
+/* ── Wrapper del filtro ── */
+.filterWrapper {
+  /* El CategoryFilter maneja su propio overflow horizontal en mobile,
+     así que este wrapper solo necesita contenerlo sin cortarlo */
+}
+
+
+/* ── Grilla ── */
+.grid {
+  display: grid;
+  /* Mobile: 1 columna */
+  grid-template-columns: 1fr;
+  gap: var(--space-5);
+  padding: 0 var(--container-px);
+  list-style: none;
+  margin: 0;
+}
+
+/* Tablet: 2 columnas */
+@media (min-width: 480px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Desktop: 3 columnas */
+@media (min-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-6);
+  }
+}
+
+/* Item de la lista — necesario para que la card ocupe el alto completo */
+.gridItem {
+  display: flex;
+}
+
+.gridItem > * {
+  flex: 1;
+}
+
+
+/* ── Estado vacío ── */
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-4);
+  padding: var(--space-16) var(--container-px);
+  text-align: center;
+}
+
+.emptyIcon {
+  font-size: 3rem;
+  opacity: 0.4;
+}
+
+.emptyText {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  color: var(--text-muted);
+}
+
+
+/* ── Nota al pie ── */
+.note {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+  text-align: center;
+  line-height: var(--leading-relaxed);
+  padding: 0 var(--container-px);
+  max-width: 560px;
+  margin: 0 auto;
+}
+
+.note strong {
+  color: var(--text-secondary);
+  font-weight: var(--font-semibold);
+}
