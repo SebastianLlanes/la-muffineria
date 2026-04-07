@@ -122,7 +122,6 @@
 
   /* Máximo 3 líneas con ellipsis */
   display: -webkit-box;
-  -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
@@ -161,6 +160,44 @@
   background-color: var(--color-rosa-50);
   color: var(--color-rosa-600);
   border: 1px solid var(--color-rosa-200);
+}
+.tagGlutenAvail {
+  background-color: var(--color-oliva-50);
+  color: var(--color-oliva-600);
+  border: 1px solid var(--color-oliva-200);
+  opacity: 0.75;
+}
+
+.tagAlmond {
+  background-color: var(--color-rosa-50);
+  color: var(--color-rosa-600);
+  border: 1px solid var(--color-rosa-200);
+}
+
+.tagProtein {
+  background-color: var(--color-trigo-50);
+  color: var(--color-trigo-600);
+  border: 1px solid var(--color-trigo-200);
+}
+.tagEggFree {
+  background-color: #f5edcc;   /* trigo claro */
+  color: #7a6020;
+}
+.tagKeto {
+  background-color: #e8d8c8;   /* cacao suave */
+  color: #6a4030;
+}
+.tagOats {
+  background-color: #ede8d8;   /* crema oscura */
+  color: #6a5c3a;
+}
+.tagClean {
+  background-color: #e0ead0;   /* verde oliva muy claro */
+  color: #3a5828;
+}
+.tagDiabetic {
+  background-color: #d8e4f0;   /* azul pizarra suave */
+  color: #2a4a6a;
 }
 
 

@@ -44,7 +44,7 @@ export default function ProductCard({ product }) {
 
   return (
     <article
-      className={`${styles.card} ${!product.available ? styles.unavailable : ''}`}
+      className={`${styles.card} ${!product.available ? styles.unavailable : ""}`}
       aria-label={`Muffin ${product.name}`}
     >
       {/* ── Imagen ── */}
@@ -55,7 +55,7 @@ export default function ProductCard({ product }) {
           className={styles.image}
           loading="lazy"
           onError={function handleImgError(e) {
-            e.currentTarget.src = '/images/placeholder-muffin.jpg'
+            e.currentTarget.src = "/images/placeholder-muffin.jpg";
           }}
         />
 
@@ -65,14 +65,13 @@ export default function ProductCard({ product }) {
         )}
 
         {/* Chip "Especial temporada" */}
-        {product.tags.includes('especial-temporada') && product.available && (
+        {product.tags.includes("especial-temporada") && product.available && (
           <div className={styles.chipSpecial}>🌿 Temporada</div>
         )}
       </div>
 
       {/* ── Contenido ── */}
       <div className={styles.body}>
-
         {/* Nombre */}
         <h3 className={styles.name}>{product.name}</h3>
 
@@ -82,13 +81,32 @@ export default function ProductCard({ product }) {
         {/* Tags relevantes */}
         <div className={styles.tags}>
           {isSinTacc && (
-            <span className={`${styles.tag} ${styles.tagGlutenFree}`}>Sin TACC</span>
+            <span className={`${styles.tag} ${styles.tagGlutenFree}`}>
+              Sin TACC
+            </span>
           )}
-          {product.tags.includes('vegano') && (
+          {product.tags.includes("sin-gluten-disponible") && (
+            <span className={`${styles.tag} ${styles.tagGlutenAvail}`}>
+              Sin TACC disponible
+            </span>
+          )}
+          {product.tags.includes("vegano") && (
             <span className={`${styles.tag} ${styles.tagVegan}`}>Vegano</span>
           )}
-          {product.tags.includes('sin-azucar-refinada') && (
-            <span className={`${styles.tag} ${styles.tagSugar}`}>Sin azúcar ref.</span>
+          {product.tags.includes("sin-azucar-refinada") && (
+            <span className={`${styles.tag} ${styles.tagSugar}`}>
+              Sin azúcar ref.
+            </span>
+          )}
+          {product.tags.includes("harina-de-almendras") && (
+            <span className={`${styles.tag} ${styles.tagAlmond}`}>
+              Harina de almendras
+            </span>
+          )}
+          {product.tags.includes("alto-proteico") && (
+            <span className={`${styles.tag} ${styles.tagProtein}`}>
+              Alto en proteína
+            </span>
           )}
         </div>
 
@@ -96,15 +114,19 @@ export default function ProductCard({ product }) {
         {hasGlutenFreeOption && (
           <div className={styles.glutenToggle}>
             <button
-              className={`${styles.toggleBtn} ${!glutenFree ? styles.toggleActive : ''}`}
-              onClick={function() { setGlutenFree(false) }}
+              className={`${styles.toggleBtn} ${!glutenFree ? styles.toggleActive : ""}`}
+              onClick={function () {
+                setGlutenFree(false);
+              }}
               aria-pressed={!glutenFree}
             >
               Estándar
             </button>
             <button
-              className={`${styles.toggleBtn} ${glutenFree ? styles.toggleActive : ''}`}
-              onClick={function() { setGlutenFree(true) }}
+              className={`${styles.toggleBtn} ${glutenFree ? styles.toggleActive : ""}`}
+              onClick={function () {
+                setGlutenFree(true);
+              }}
               aria-pressed={glutenFree}
             >
               Sin TACC
@@ -124,23 +146,27 @@ export default function ProductCard({ product }) {
           </div>
 
           <button
-            className={`${styles.addButton} ${added ? styles.addButtonSuccess : ''}`}
+            className={`${styles.addButton} ${added ? styles.addButtonSuccess : ""}`}
             onClick={handleAdd}
             disabled={!product.available}
             aria-label={`Agregar ${product.name} al carrito`}
           >
-            {!product.available
-              ? 'Sin stock'
-              : added
-                ? <><CheckIcon /> Agregado</>
-                : <><PlusIcon /> Agregar</>
-            }
+            {!product.available ? (
+              "Sin stock"
+            ) : added ? (
+              <>
+                <CheckIcon /> Agregado
+              </>
+            ) : (
+              <>
+                <PlusIcon /> Agregar
+              </>
+            )}
           </button>
         </div>
-
       </div>
     </article>
-  )
+  );
 }
 
 function PlusIcon() {
