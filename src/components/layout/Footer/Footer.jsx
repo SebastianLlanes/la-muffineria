@@ -26,9 +26,6 @@ export default function Footer() {
           <p className={styles.catchphrase}>
             De otra semilla. Del mismo amor.
           </p>
-          <p className={styles.location}>
-            📍 San Carlos Centro, Argentina
-          </p>
         </div>
 
         {/* ── Navegación ── */}

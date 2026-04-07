@@ -75,7 +75,7 @@ export default function About() {
               📍
             </span>
             <div>
-              <p className={styles.mapTitle}>San Carlos Centro, Santa Fe</p>
+              <p className={styles.mapTitle}>Origen del ingenio nutricional.</p>
               <p className={styles.mapSubtitle}>
                 Elaborado en casa, con amor local.
               </p>
