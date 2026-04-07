@@ -21,13 +21,6 @@
  * }
  */
 
-export const CATEGORIES = [
-  { id: 'todos',      label: 'Todos' },
-  { id: 'clasicos',   label: 'Clásicos' },
-  { id: 'integrales', label: 'Integrales' },
-  { id: 'sin-gluten', label: 'Sin TACC' },
-  { id: 'especiales', label: 'Especiales' },
-]
 
 export const products = [
   {
@@ -97,11 +90,6 @@ export const products = [
  * @param {string} categoryId
  * @returns {Array}
  */
-export function getProductsByCategory(categoryId) {
-  if (categoryId === 'todos') return products
-  return products.filter(p => p.category === categoryId)
-}
-
 /**
  * Devuelve solo los productos destacados para el Hero.
  * @returns {Array}

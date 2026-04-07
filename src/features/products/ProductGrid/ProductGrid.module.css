@@ -64,13 +64,6 @@
 }
 
 
-/* ── Wrapper del filtro ── */
-.filterWrapper {
-  /* El CategoryFilter maneja su propio overflow horizontal en mobile,
-     así que este wrapper solo necesita contenerlo sin cortarlo */
-}
-
-
 /* ── Grilla ── */
 .grid {
   display: grid;
