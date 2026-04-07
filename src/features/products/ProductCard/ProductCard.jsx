@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useCart } from '@hooks/useCart'
 import { formatPrice } from '@utils/formatPrice'
+import { isEnHorneada } from '@data/horneada'
 import styles from './ProductCard.module.css'
 
 /*
@@ -16,6 +17,7 @@ export default function ProductCard({ product }) {
   const { addItem } = useCart()
   const [added, setAdded]           = useState(false)
   const [glutenFree, setGlutenFree] = useState(false)
+  const enHorneada = isEnHorneada(product.id)
 
   const currentPrice = glutenFree && product.priceGlutenFree
     ? product.priceGlutenFree
@@ -62,6 +64,10 @@ export default function ProductCard({ product }) {
         {/* Chip "Sin stock" */}
         {!product.available && (
           <div className={styles.chipUnavailable}>Sin stock</div>
+        )}
+        {/* Chip "En esta horneada" */}
+        {enHorneada && product.available && (
+          <div className={styles.chipHorneada}>🔥 En esta horneada</div>
         )}
 
         {/* Chip "Especial temporada" */}

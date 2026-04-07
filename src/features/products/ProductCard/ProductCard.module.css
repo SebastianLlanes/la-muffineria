@@ -78,6 +78,20 @@
   background-color: var(--color-cacao-800);
   color: var(--color-crema);
 }
+.chipHorneada {
+  background-color: var(--color-rosa);
+  color: var(--color-crema);
+  animation: horneadaPulse 2.5s ease-in-out infinite;
+}
+
+@keyframes horneadaPulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.82; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .chipHorneada { animation: none; }
+}
 
 .chipSpecial {
   background-color: var(--color-oliva);

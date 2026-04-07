@@ -1,4 +1,5 @@
 import IconMuffin from '../../../assets/icons/iconmuffin.png'
+import HorneadaBanner from '@components/ui/HorneadaBanner/HorneadaBanner'
 import styles from './Hero.module.css'
 
 /*
@@ -66,6 +67,9 @@ export default function Hero({ onShopClick }) {
             Conocernos
           </a>
         </div>
+        
+        {/* ── Banner de horneada activa ── */}
+        <HorneadaBanner />
 
       </div>
 
