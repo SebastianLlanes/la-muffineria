@@ -35,20 +35,10 @@ export default function Hero({ onShopClick }) {
 
       {/* ── Contenido ── */}
       <div className={styles.content}>
-       {/* Catchphrase oficial */}
-        <p className={styles.catchphrase}>
-          De otra semilla. Del mismo amor.
-        </p>
-
-        {/* Eyebrow — categoría / descriptor */}
-        <p className={styles.eyebrow}>
-          <span className={styles.eyebrowDot} aria-hidden="true" />
-          Muffins artesanales · San Carlos Centro, Argentina
-        </p>
 
         {/* Heading principal */}
         <h1 className={styles.heading}>
-          Horneados con{' '}
+          Muffins horneados con{' '}
           <em className={styles.headingAccent}>harinas alternativas</em>{' '}
           y un sabor único
         </h1>
