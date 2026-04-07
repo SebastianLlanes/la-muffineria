@@ -13,7 +13,7 @@ export default function HorneadaBanner() {
 
   const fechaProxima   = new Date(horneada.fechaProxima)
   const diaHorneada    = diasLabel[fechaProxima.getDay()]
-  const horaHorneada   = `${fechaProxima.getHours()}:00 hs`
+  const horaHorneada   = `${fechaProxima.getHours()}:00`
 
   return (
     <div className={`${styles.banner} ${horneada.urgente ? styles.urgente : ''}`}>
