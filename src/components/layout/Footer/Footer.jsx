@@ -61,7 +61,7 @@ export default function Footer() {
             </li>
             <li>
               <a
-                href="https://instagram.com/lamuffineria"
+                href="https://www.instagram.com/lamuffineriascc?igsh=ZnpvOHdjcnduanZ2"
                 target="_blank"
                 rel="noopener noreferrer"
                 className={styles.navLink}
