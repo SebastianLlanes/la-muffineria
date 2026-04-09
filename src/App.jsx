@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import SplashScreen from './components/SplashScreen/SplashScreen'
 import { CartProvider } from '@context/CartContext'
 import Navbar      from '@components/layout/Navbar/Navbar'
 import Footer      from '@components/layout/Footer/Footer'
@@ -10,6 +11,16 @@ import CartDrawer  from '@features/cart/CartDrawer/CartDrawer'
 import styles from './App.module.css'
 
 function App() {
+
+   const [splashDone, setSplashDone] = useState(
+    () => sessionStorage.getItem('splashSeen') === '2'
+  )
+
+  const handleSplashComplete = () => {
+    sessionStorage.setItem('splashSeen', '2')
+    setSplashDone(true)
+  }
+
   const [isCartOpen, setIsCartOpen] = useState(false)
 
   function openCart()  { setIsCartOpen(true)  }
@@ -17,6 +28,7 @@ function App() {
 
   return (
     <CartProvider>
+      {!splashDone && <SplashScreen onComplete={handleSplashComplete} />}
       <div className={styles.app}>
 
         <Navbar onCartClick={openCart} />
