@@ -51,7 +51,7 @@ export const products = [
     id: 'muf-003',
     name: 'Limón & Arándanos',
     category: 'clasicos',
-    description: 'El hit de la casa. Arándanos frescos con avena entera y un toque de limón.',
+    description: 'El hit de la casa. Harina de almendras, arándanos frescos y un toque de limón.',
     price: 2400,
     priceGlutenFree: 3000,
     image: '/images/limon-arandanos.png',
