@@ -61,19 +61,18 @@ export default function ProductCard({ product }) {
           }}
         />
 
-        {/* Chip "Sin stock" */}
-        {!product.available && (
-          <div className={styles.chipUnavailable}>Sin stock</div>
-        )}
-        {/* Chip "En esta horneada" */}
-        {enHorneada && product.available && (
-          <div className={styles.chipHorneada}>🔥 En esta horneada</div>
-        )}
-
-        {/* Chip "Especial temporada" */}
-        {product.tags.includes("especial-temporada") && product.available && (
-          <div className={styles.chipSpecial}>🌿 Temporada</div>
-        )}
+        {/* Stack de chips sobre la imagen */}
+        <div className={styles.chipsStack}>
+          {!product.available && (
+            <div className={styles.chipUnavailable}>Sin stock</div>
+          )}
+          {enHorneada && product.available && (
+            <div className={styles.chipHorneada}>🔥 En esta horneada</div>
+          )}
+          {product.tags.includes("especial-temporada") && product.available && (
+            <div className={styles.chipSpecial}>🌿 Temporada</div>
+          )}
+        </div>
       </div>
 
       {/* ── Contenido ── */}
@@ -113,6 +112,9 @@ export default function ProductCard({ product }) {
             <span className={`${styles.tag} ${styles.tagProtein}`}>
               Alto en proteína
             </span>
+          )}
+          {product.tags.includes('base-legumbres') && (
+            <span className={`${styles.tag} ${styles.tagLegumes}`}>Base de legumbres</span>
           )}
         </div>
 

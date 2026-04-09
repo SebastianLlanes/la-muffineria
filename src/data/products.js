@@ -32,7 +32,7 @@ export const products = [
     priceGlutenFree: 3000,
     image: '/images/limon-amapolas-45degree.png',
     available: true,
-    tags: ['sin-azucar-refinada', 'harina-de-almendras'],  // 'harina-de-almendras' es un tag UI para mostrar un ícono, no un tag de filtro
+    tags: ['sin-azucar-refinada', 'harina-de-almendras', 'especial-temporada'],  // 'harina-de-almendras' es un tag UI para mostrar un ícono, no un tag de filtro
     featured: false,
   },
   {
@@ -44,7 +44,7 @@ export const products = [
     priceGlutenFree: 2900,
     image: '/images/lenteja-cacao-chips.png',
     available: true,
-    tags: ['alto-proteico', 'sin-gluten-disponible' ],  // eliminado 'Harina-de-almendras' (no es un tag UI)
+    tags: ['alto-proteico', 'base-legumbres' ],  // eliminado 'Harina-de-almendras' (no es un tag UI)
     featured: true,
   },
   {
@@ -56,7 +56,7 @@ export const products = [
     priceGlutenFree: 3000,
     image: '/images/limon-arandanos.png',
     available: true,
-    tags: ['sin-gluten-disponible', 'harina-de-almendras'],
+    tags: ['sin-gluten-disponible', 'harina-de-almendras', 'especial-temporada'],
     featured: true,
   },
   {
@@ -80,7 +80,7 @@ export const products = [
     priceGlutenFree: null,     // ✅ ya ES sin gluten — no tiene variante, la tiene de base
     image: '/images/lentejas-cacao-nueces.png',
     available: true,
-    tags: ['alto-proteico' ],
+    tags: ['alto-proteico', 'base-legumbres'],  
     featured: true,
   },
 ]
