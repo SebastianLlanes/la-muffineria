@@ -11,26 +11,25 @@ import CartDrawer  from '@features/cart/CartDrawer/CartDrawer'
 import styles from './App.module.css'
 
 function App() {
-
-   const [splashDone, setSplashDone] = useState(
-    () => sessionStorage.getItem('splashSeen') === '2'
-  )
+  const [splashDone, setSplashDone] = useState(false);
 
   const handleSplashComplete = () => {
-    sessionStorage.setItem('splashSeen', '2')
-    setSplashDone(true)
+    setSplashDone(true);
+  };
+
+  const [isCartOpen, setIsCartOpen] = useState(false);
+
+  function openCart() {
+    setIsCartOpen(true);
   }
-
-  const [isCartOpen, setIsCartOpen] = useState(false)
-
-  function openCart()  { setIsCartOpen(true)  }
-  function closeCart() { setIsCartOpen(false) }
+  function closeCart() {
+    setIsCartOpen(false);
+  }
 
   return (
     <CartProvider>
       {!splashDone && <SplashScreen onComplete={handleSplashComplete} />}
       <div className={styles.app}>
-
         <Navbar onCartClick={openCart} />
 
         <main className={styles.main}>
@@ -43,10 +42,9 @@ function App() {
         <Footer />
 
         <CartDrawer isOpen={isCartOpen} onClose={closeCart} />
-
       </div>
     </CartProvider>
-  )
+  );
 }
 
 export default App
