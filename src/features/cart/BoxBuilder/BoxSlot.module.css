@@ -1,0 +1,111 @@
+.slot {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+min-width: 0;
+  gap: 0.3rem;
+  border-radius: 12px;
+  aspect-ratio: 1 / 1;
+  animation: slotIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes slotIn {
+  from { opacity: 0; transform: scale(0.8) translateY(10px); }
+  to   { opacity: 1; transform: scale(1)   translateY(0); }
+}
+
+/* ── Slot vacío (botón) ── */
+.empty {
+  background: transparent;
+  border: 1.5px dashed color-mix(in srgb, var(--color-trigo) 65%, transparent);
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.15s ease;
+}
+
+.empty:hover {
+  background: color-mix(in srgb, var(--color-rosa-viejo) 10%, transparent);
+  border-color: color-mix(in srgb, var(--color-rosa-viejo) 55%, transparent);
+  transform: scale(1.04);
+}
+
+.empty:active { transform: scale(0.97); }
+
+.addIcon {
+  font-size: 1.25rem;
+  font-weight: 300;
+  line-height: 1;
+  color: color-mix(in srgb, var(--color-cacao) 30%, transparent);
+}
+
+.addLabel {
+  font-family: var(--font-body);
+  font-size: 0.6rem;
+  letter-spacing: 0.04em;
+  color: color-mix(in srgb, var(--color-cacao) 32%, transparent);
+  text-transform: uppercase;
+}
+
+/* ── Slot ocupado ── */
+.filled {
+  background: color-mix(in srgb, var(--color-crema) 85%, white);
+  border: 1.5px solid color-mix(in srgb, var(--color-rosa-viejo) 30%, transparent);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.filled:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 14px rgba(0, 0, 0, 0.08);
+}
+
+.image {
+  width: 58%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.name {
+  font-family: var(--font-body);
+  font-size: 0.6rem;
+  color: var(--color-cacao);
+  opacity: 0.7;
+  text-align: center;
+  line-height: 1.2;
+  max-width: 88%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ── Botón quitar ── */
+.removeBtn {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: none;
+  background: color-mix(in srgb, var(--color-cacao) 85%, transparent);
+  color: var(--color-crema);
+  font-size: 0.55rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+}
+
+.filled:hover .removeBtn { opacity: 1; }
+
+@media (hover: none) {
+  .removeBtn { opacity: 1; }
+}

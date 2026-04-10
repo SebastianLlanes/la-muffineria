@@ -1,0 +1,119 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.5rem 1rem;
+}
+
+.wrapper.compact {
+  padding: 0.75rem 0;
+  gap: 0.6rem;
+}
+
+.heading {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  color: var(--color-cacao);
+  text-align: center;
+  margin: 0;
+}
+
+.priceNote {
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  color: var(--color-cacao);
+  opacity: 0.75;
+  margin: 0;
+  text-align: center;
+}
+
+.priceNote strong {
+  color: var(--color-verde-oliva);
+  opacity: 1;
+}
+
+.options {
+  display: flex;
+  gap: 0.75rem;
+  width: 100%;
+}
+
+.option {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 1rem 0.5rem;
+  background: var(--color-crema);
+  border: 2px solid transparent;
+  border-radius: 16px;
+  cursor: pointer;
+  transition:
+    border-color 0.2s ease,
+    transform 0.15s ease,
+    box-shadow 0.2s ease;
+}
+
+.option:hover {
+  border-color: var(--color-rosa-viejo);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+}
+
+.option:active {
+  transform: translateY(-1px);
+}
+
+.emoji {
+  font-size: 1.75rem;
+  line-height: 1;
+}
+
+.label {
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  color: var(--color-cacao);
+  font-weight: 600;
+}
+
+.description {
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  color: var(--color-cacao);
+  opacity: 0.65;
+}
+
+.note {
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--color-verde-oliva);
+  margin-top: 0.2rem;
+}
+
+.savings {
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  color: var(--color-verde-oliva);
+  background: color-mix(in srgb, var(--color-verde-oliva) 10%, transparent);
+  padding: 0.4rem 1rem;
+  border-radius: 99px;
+  margin: 0;
+  text-align: center;
+}
+
+.optionDisabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+  filter: grayscale(0.4);
+}
+
+.disabledNote {
+  font-family: var(--font-body);
+  font-size: 0.65rem;
+  color: var(--color-cacao);
+  opacity: 0.6;
+  margin-top: 0.1rem;
+}

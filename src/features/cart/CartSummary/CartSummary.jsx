@@ -4,25 +4,16 @@ import { formatPrice } from '@utils/formatPrice'
 import { sendWhatsAppOrder } from '@utils/whatsapp'
 import styles from './CartSummary.module.css'
 
-/*
- * CartSummary
- *
- * Props:
- *   onClose  fn  — cierra el drawer después de enviar
- */
 export default function CartSummary({ onClose }) {
-  const { items, subtotal, clearCart } = useCart()
-  const [note, setNote]     = useState('')
+  const { items, subtotal, clearCart, unitPrice } = useCart()
+  const [note, setNote]       = useState('')
   const [sending, setSending] = useState(false)
 
   function handleSendOrder() {
     if (items.length === 0) return
-
     setSending(true)
-
-    // Pequeño delay para que el usuario vea el estado "Enviando..."
     setTimeout(function executeOrder() {
-      sendWhatsAppOrder(items, note)
+      sendWhatsAppOrder(items, unitPrice, note)
       clearCart()
       setNote('')
       setSending(false)
@@ -33,7 +24,6 @@ export default function CartSummary({ onClose }) {
   return (
     <div className={styles.summary}>
 
-      {/* ── Nota opcional ── */}
       <div className={styles.noteSection}>
         <label htmlFor="order-note" className={styles.noteLabel}>
           Aclaración del pedido
@@ -53,7 +43,6 @@ export default function CartSummary({ onClose }) {
         )}
       </div>
 
-      {/* ── Resumen de totales ── */}
       <div className={styles.totals}>
         <div className={styles.totalRow}>
           <span className={styles.totalLabel}>
@@ -61,13 +50,11 @@ export default function CartSummary({ onClose }) {
           </span>
           <span className={styles.totalValue}>{formatPrice(subtotal)}</span>
         </div>
-
         <p className={styles.shippingNote}>
           🚚 El envío se coordina por WhatsApp según tu zona.
         </p>
       </div>
 
-      {/* ── CTA WhatsApp ── */}
       <button
         className={`${styles.whatsappBtn} ${sending ? styles.sending : ''}`}
         onClick={handleSendOrder}

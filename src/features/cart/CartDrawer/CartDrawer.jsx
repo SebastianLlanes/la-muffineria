@@ -1,7 +1,6 @@
 import { useEffect, useRef } from 'react'
 import { useCart } from '@hooks/useCart'
-import CartItem from '@features/cart/CartItem/CartItem'
-import CartSummary from '@features/cart/CartSummary/CartSummary'
+import { BoxBuilder } from '@features/cart/BoxBuilder/BoxBuilder'
 import styles from './CartDrawer.module.css'
 
 /*
@@ -15,7 +14,7 @@ import styles from './CartDrawer.module.css'
  *   onClose fn       — callback para cerrar
  */
 export default function CartDrawer({ isOpen, onClose }) {
-  const { items, isEmpty, itemCount, clearCart } = useCart()
+  const { isEmpty } = useCart()
   const drawerRef = useRef(null)
   const firstFocusableRef = useRef(null)
 
@@ -35,10 +34,9 @@ export default function CartDrawer({ isOpen, onClose }) {
   useEffect(function lockBodyScroll() {
     if (isOpen) {
       document.body.style.overflow = 'hidden'
-      // Foco al primer elemento interactivo del drawer
       setTimeout(function focusDrawer() {
         firstFocusableRef.current && firstFocusableRef.current.focus()
-      }, 350) // después de la animación CSS
+      }, 350)
     } else {
       document.body.style.overflow = ''
     }
@@ -72,70 +70,37 @@ export default function CartDrawer({ isOpen, onClose }) {
         <div className={styles.header}>
           <div className={styles.headerTitle}>
             <h2 className={styles.title}>Tu pedido</h2>
-            {!isEmpty && (
-              <span className={styles.itemCountBadge}>
-                {itemCount} {itemCount === 1 ? 'item' : 'items'}
-              </span>
-            )}
           </div>
 
-          <div className={styles.headerActions}>
-            {/* Vaciar carrito — solo visible si hay items */}
-            {!isEmpty && (
-              <button
-                className={styles.clearButton}
-                onClick={clearCart}
-                aria-label="Vaciar carrito"
-              >
-                Vaciar
-              </button>
-            )}
-
-            {/* Botón cerrar */}
-            <button
-              ref={firstFocusableRef}
-              className={styles.closeButton}
-              onClick={onClose}
-              aria-label="Cerrar carrito"
-            >
-              <CloseIcon />
-            </button>
-          </div>
+          {/* Botón cerrar */}
+          <button
+            ref={firstFocusableRef}
+            className={styles.closeButton}
+            onClick={onClose}
+            aria-label="Cerrar carrito"
+          >
+            <CloseIcon />
+          </button>
         </div>
 
         {/* ── Contenido scrolleable ── */}
         <div className={styles.content}>
-          {isEmpty
-            ? (
-              /* Estado vacío */
-              <div className={styles.empty}>
-                <span className={styles.emptyIcon} aria-hidden="true">🧁</span>
-                <h3 className={styles.emptyTitle}>Tu carrito está vacío</h3>
-                <p className={styles.emptyText}>
-                  Explorá nuestros muffins y armá tu pedido.
-                </p>
-                <button className={styles.emptyAction} onClick={onClose}>
-                  Ver productos
-                </button>
-              </div>
-            )
-            : (
-              <>
-                {/* Lista de items */}
-                <ul className={styles.itemList} aria-label="Items en el carrito">
-                  {items.map(function(item) {
-                    return <CartItem key={item.id} item={item} />
-                  })}
-                </ul>
-
-                {/* Separador */}
-                <div className={styles.divider} />
-
-                {/* Resumen + WhatsApp */}
-                <CartSummary onClose={onClose} />
-              </>
-            )
-          }
+          {isEmpty ? (
+            /* Estado vacío */
+            <div className={styles.empty}>
+              <span className={styles.emptyIcon} aria-hidden="true">🧁</span>
+              <h3 className={styles.emptyTitle}>Tu carrito está vacío</h3>
+              <p className={styles.emptyText}>
+                Explorá nuestros muffins y armá tu pedido.
+              </p>
+              <button className={styles.emptyAction} onClick={onClose}>
+                Ver productos
+              </button>
+            </div>
+          ) : (
+            /* ── Armador de Caja ── */
+            <BoxBuilder onClose={onClose} />
+          )}
         </div>
 
       </aside>
