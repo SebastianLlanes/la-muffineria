@@ -29,10 +29,9 @@ export const products = [
     category: 'clasicos',
     description: 'Cítrico, aromático y con esa textura única de las semillas de amapola.',
     price: 2400,
-    priceGlutenFree: 3000,
     image: '/images/limon-amapolas-45degree.png',
     available: true,
-    tags: ['sin-azucar-refinada', 'harina-de-almendras', 'especial-temporada'],  // 'harina-de-almendras' es un tag UI para mostrar un ícono, no un tag de filtro
+    tags: [ 'sin-gluten', 'sin-azucar-refinada', 'harina-de-almendras', 'especial-temporada'],  // 'harina-de-almendras' es un tag UI para mostrar un ícono, no un tag de filtro
     featured: false,
   },
   {
@@ -41,10 +40,9 @@ export const products = [
     category: 'especiales',
     description: 'El increíble. No vas a poder creer que está hecho full lentejas. Toque generoso de chips de cacao amargo.',
     price: 2400,                
-    priceGlutenFree: 2900,
     image: '/images/lenteja-cacao-chips.png',
     available: true,
-    tags: ['alto-proteico', 'base-legumbres' ],  // eliminado 'Harina-de-almendras' (no es un tag UI)
+    tags: [ 'sin-gluten', 'alto-proteico', 'base-legumbres' ],  // eliminado 'Harina-de-almendras' (no es un tag UI)
     featured: true,
   },
   {
@@ -53,10 +51,9 @@ export const products = [
     category: 'clasicos',
     description: 'El hit de la casa. Harina de almendras, arándanos frescos y un toque de limón.',
     price: 2400,
-    priceGlutenFree: 3000,
     image: '/images/limon-arandanos.png',
     available: true,
-    tags: ['sin-gluten-disponible', 'harina-de-almendras', 'especial-temporada'],
+    tags: ['sin-gluten', 'harina-de-almendras', 'especial-temporada'],
     featured: true,
   },
   {
@@ -65,10 +62,9 @@ export const products = [
     category: 'especiales',
     description: 'Ralladura de naranja fresca con chips de chocolate. Esponjoso, perfumado y sin culpa.',
     price: 2400,
-    priceGlutenFree: 3000,
     image: '/images/naranja-chips.png',
     available: true,
-    tags: ['sin-gluten-disponible', 'vegano'],
+    tags: ['sin-gluten', 'harina-de-almendras', 'especial-temporada'],
     featured: false,
   },
   {
@@ -77,10 +73,9 @@ export const products = [
     category: 'sin-gluten',
     description: 'Base de lentejas con cacao puro y nueces enteras. Húmedo, intenso y 100% sin TACC.',
     price: 3000,
-    priceGlutenFree: null,     // ✅ ya ES sin gluten — no tiene variante, la tiene de base
     image: '/images/lentejas-cacao-nueces.png',
     available: true,
-    tags: ['alto-proteico', 'base-legumbres'],  
+    tags: ['sin-gluten', 'alto-proteico', 'base-legumbres'],  
     featured: true,
   },
 ]

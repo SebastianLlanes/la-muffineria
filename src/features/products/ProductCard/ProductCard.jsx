@@ -15,23 +15,15 @@ import styles from './ProductCard.module.css'
  */
 export default function ProductCard({ product }) {
   const { addItem } = useCart()
-  const [added, setAdded]           = useState(false)
-  const [glutenFree, setGlutenFree] = useState(false)
+  const [added, setAdded] = useState(false)
   const enHorneada = isEnHorneada(product.id)
-
-  const currentPrice = glutenFree && product.priceGlutenFree
-    ? product.priceGlutenFree
-    : product.price
 
   function handleAdd() {
     if (!product.available || added) return
 
-    const itemToAdd = {
+   const itemToAdd = {
       ...product,
-      // Si eligió sin TACC, sobrescribimos id y precio para distinguirlo en el carrito
-      id:    glutenFree ? `${product.id}-gf` : product.id,
-      name:  glutenFree ? `${product.name} (Sin TACC)` : product.name,
-      price: currentPrice,
+      price: product.price,
     }
 
     addItem(itemToAdd)
@@ -40,9 +32,6 @@ export default function ProductCard({ product }) {
     setAdded(true)
     setTimeout(function resetAdded() { setAdded(false) }, 1500)
   }
-
-  const hasGlutenFreeOption = Boolean(product.priceGlutenFree)
-  const isSinTacc = product.tags.includes('sin-gluten')
 
   return (
     <article
@@ -85,16 +74,6 @@ export default function ProductCard({ product }) {
 
         {/* Tags relevantes */}
         <div className={styles.tags}>
-          {isSinTacc && (
-            <span className={`${styles.tag} ${styles.tagGlutenFree}`}>
-              Sin TACC
-            </span>
-          )}
-          {product.tags.includes("sin-gluten-disponible") && (
-            <span className={`${styles.tag} ${styles.tagGlutenAvail}`}>
-              Sin TACC disponible
-            </span>
-          )}
           {product.tags.includes("vegano") && (
             <span className={`${styles.tag} ${styles.tagVegan}`}>Vegano</span>
           )}
@@ -116,41 +95,16 @@ export default function ProductCard({ product }) {
           {product.tags.includes('base-legumbres') && (
             <span className={`${styles.tag} ${styles.tagLegumes}`}>Base de legumbres</span>
           )}
+          {product.tags.includes('sin-gluten') && (
+            <span className={`${styles.tag} ${styles.tagSinGluten}`}>Sin gluten</span>
+          )}
         </div>
 
-        {/* Selector sin TACC (si tiene opción) */}
-        {hasGlutenFreeOption && (
-          <div className={styles.glutenToggle}>
-            <button
-              className={`${styles.toggleBtn} ${!glutenFree ? styles.toggleActive : ""}`}
-              onClick={function () {
-                setGlutenFree(false);
-              }}
-              aria-pressed={!glutenFree}
-            >
-              Estándar
-            </button>
-            <button
-              className={`${styles.toggleBtn} ${glutenFree ? styles.toggleActive : ""}`}
-              onClick={function () {
-                setGlutenFree(true);
-              }}
-              aria-pressed={glutenFree}
-            >
-              Sin TACC
-            </button>
-          </div>
-        )}
 
         {/* Footer: precio + botón */}
         <div className={styles.footer}>
           <div className={styles.priceBlock}>
-            <span className={styles.price}>{formatPrice(currentPrice)}</span>
-            {glutenFree && (
-              <span className={styles.priceBase}>
-                Base: {formatPrice(product.price)}
-              </span>
-            )}
+            <span className={styles.price}>{formatPrice(product.price)}</span>
           </div>
 
           <button
