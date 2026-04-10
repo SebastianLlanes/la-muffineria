@@ -6,7 +6,7 @@
 const HORNEADA_CONFIG = {
   capacidad: 12,
   productos: ['muf-001', 'muf-002', 'muf-003', 'muf-004', 'muf-005', 'muf-007'],
-  mensajeCierre: 'Pedidos hasta el día anterior a las 20 hs.',
+  mensajeCierre: 'Pedidos hasta el mediodía de la horneada.',
 }
 
 const DIAS_HORNEADA = [2, 5]
