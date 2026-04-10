@@ -43,7 +43,7 @@ export const products = [
     price: 2400,                
     priceGlutenFree: 2900,
     image: '/images/lenteja-cacao-chips.png',
-    available: false,
+    available: true,
     tags: ['alto-proteico', 'base-legumbres' ],  // eliminado 'Harina-de-almendras' (no es un tag UI)
     featured: true,
   },
@@ -79,7 +79,7 @@ export const products = [
     price: 3000,
     priceGlutenFree: null,     // ✅ ya ES sin gluten — no tiene variante, la tiene de base
     image: '/images/lentejas-cacao-nueces.png',
-    available: false,
+    available: true,
     tags: ['alto-proteico', 'base-legumbres'],  
     featured: true,
   },
