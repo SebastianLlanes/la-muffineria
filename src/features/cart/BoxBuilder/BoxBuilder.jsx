@@ -33,6 +33,7 @@ export function BoxBuilder({ onClose }) {
 const [lidClosed, setLidClosed] = useState(false)
 const [editMode, setEditMode]   = useState(false)
 const [replaceMode, setReplaceMode] = useState(false)
+const [success, setSuccess] = useState(false)
 
 useEffect(() => {
   if (isBoxComplete && isBox && !editMode) {
@@ -55,14 +56,33 @@ useEffect(() => {
 // Recién acá el early return
 if (!boxSize) return <BoxSizeSelector />
 
+if (success) {
+  return (
+    <div className={styles.successWrapper}>
+      <span className={styles.successEmoji}>🧁</span>
+      <h3 className={styles.successTitle}>¡Pedido enviado!</h3>
+      <p className={styles.successText}>
+        Te estamos esperando en WhatsApp para confirmar tu pedido y coordinar la entrega.
+      </p>
+      <p className={styles.successSub}>De otra semilla. Del mismo amor. 🌿</p>
+      <button
+        className={styles.successBtn}
+        onClick={() => setSuccess(false)}
+      >
+        ¡Perfecto!
+      </button>
+    </div>
+  )
+}
 
 
   // unitPrice como segundo argumento — whatsapp.js ya no recibe boxTotal
-  function handleWhatsApp() {
-    const url = buildWhatsAppURL(items, unitPrice)
-    window.open(url, '_blank')
-  }
-
+function handleWhatsApp() {
+  const url = buildWhatsAppURL(items, unitPrice)
+  window.open(url, '_blank')
+  clearCart()
+  setSuccess(true)
+}
   /* ── Modo individual ── */
   if (isIndividual) {
     return (
@@ -168,17 +188,19 @@ if (!boxSize) return <BoxSizeSelector />
                     nada. Mismo precio unitario, más variedad.
                   </p>
                   <button
-                    className={styles.pendingUpgradeBtn}
+                    className={styles.pendingUpgradeSoft}
                     onClick={confirmUpgrade}
                   >
-                    Sí, quiero la caja x6 🎉
+                    ¿Y si me llevo 6? Mismo precio x 🧁 😏
                   </button>
+
                   <button
                     className={styles.pendingReplaceBtn}
                     onClick={() => setReplaceMode(true)}
                   >
                     No, quiero reemplazar un muffin
                   </button>
+    
                   <button
                     className={styles.pendingCancelBtn}
                     onClick={cancelPending}

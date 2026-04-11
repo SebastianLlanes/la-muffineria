@@ -466,3 +466,85 @@
   white-space: nowrap;
   max-width: 62px;
 }
+/* ── Éxito ── */
+.successWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.65rem;
+  padding: 2.5rem 1.5rem;
+  text-align: center;
+  min-height: 280px;
+  animation: fadeUp 0.4s ease both;
+}
+
+.successEmoji {
+  font-size: 2.75rem;
+  line-height: 1;
+}
+
+.successTitle {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  color: var(--color-cacao);
+  margin: 0;
+}
+
+.successText {
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  color: var(--color-cacao);
+  opacity: 0.7;
+  margin: 0;
+  line-height: 1.6;
+  max-width: 26ch;
+}
+
+.successSub {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  color: var(--color-verde-oliva);
+  opacity: 0.75;
+  margin: 0.5rem 0 0;
+  font-style: italic;
+}
+.successBtn {
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-crema);
+  background: var(--color-verde-oliva);
+  border: none;
+  border-radius: 99px;
+  padding: 0.55rem 1.5rem;
+  cursor: pointer;
+  margin-top: 0.5rem;
+  transition: opacity 0.2s, transform 0.15s;
+}
+
+.successBtn:hover {
+  opacity: 0.85;
+  transform: translateY(-1px);
+}
+
+.pendingUpgradeSoft {
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--color-verde-oliva);
+  background: color-mix(in srgb, var(--color-verde-oliva) 10%, transparent);
+  border-width: 1px;
+  border-style: solid;
+  border-color: color-mix(in srgb, var(--color-verde-oliva) 30%, transparent);
+  border-radius: 99px;
+  padding: 0.4rem 1rem;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s, transform 0.15s;
+}
+
+.pendingUpgradeSoft:hover {
+  background: color-mix(in srgb, var(--color-verde-oliva) 16%, transparent);
+  border-color: color-mix(in srgb, var(--color-verde-oliva) 50%, transparent);
+  transform: translateY(-1px);
+}
