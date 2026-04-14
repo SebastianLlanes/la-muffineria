@@ -16,7 +16,7 @@ export function BoxBuilder({ onClose }) {
     showUpsell,
     isIndividual,
     isBox,
-    unitPrice,
+    hasMixed,
     boxTotal,
     savings,
     itemCount,
@@ -76,9 +76,9 @@ if (success) {
 }
 
 
-  // unitPrice como segundo argumento — whatsapp.js ya no recibe boxTotal
 function handleWhatsApp() {
-  const url = buildWhatsAppURL(items, unitPrice)
+  const applyDiscount = isBox && !hasMixed
+  const url = buildWhatsAppURL(items, applyDiscount)
   window.open(url, '_blank')
   clearCart()
   setSuccess(true)
@@ -87,7 +87,6 @@ function handleWhatsApp() {
   if (isIndividual) {
     return (
       <div className={styles.wrapper}>
-
         <div className={styles.header}>
           <span className={styles.title}>Tu pedido</span>
           <button className={styles.resetBtn} onClick={clearCart}>
@@ -96,15 +95,19 @@ function handleWhatsApp() {
         </div>
 
         <ul className={styles.individualList}>
-          {items.map(item => (
+          {items.map((item) => (
             <li key={item.id} className={styles.individualItem}>
-              <img src={item.image} alt={item.name} className={styles.individualImg} />
+              <img
+                src={item.image}
+                alt={item.name}
+                className={styles.individualImg}
+              />
               <div className={styles.individualInfo}>
                 <span className={styles.individualName}>{item.name}</span>
                 <span className={styles.individualQty}>{item.quantity} u.</span>
               </div>
               <span className={styles.individualPrice}>
-                ${(item.quantity * unitPrice).toLocaleString('es-AR')}
+                ${(item.quantity * item.normalPrice).toLocaleString("es-AR")}
               </span>
             </li>
           ))}
@@ -114,20 +117,32 @@ function handleWhatsApp() {
           <div className={styles.upsellIndividual}>
             <span>🧁 ¿Armamos una caja con descuento?</span>
             <div className={styles.upsellActions}>
-              <button onClick={() => setBoxSize(4)} className={styles.upsellBtn}>Caja x4</button>
-              <button onClick={() => setBoxSize(6)} className={styles.upsellBtn}>Caja x6</button>
+              <button
+                onClick={() => setBoxSize(4)}
+                className={styles.upsellBtn}
+              >
+                Caja x4
+              </button>
+              <button
+                onClick={() => setBoxSize(6)}
+                className={styles.upsellBtn}
+              >
+                Caja x6
+              </button>
             </div>
           </div>
         )}
 
         <div className={styles.pricing}>
           <div className={styles.pricingRow}>
-            <span>{itemCount} muffin{itemCount !== 1 ? 's' : ''}</span>
-            <span>${unitPrice.toLocaleString('es-AR')} c/u</span>
+            <span>
+              {itemCount} muffin{itemCount !== 1 ? "s" : ""}
+            </span>
+            <span>Precio normal</span>
           </div>
           <div className={`${styles.pricingRow} ${styles.total}`}>
             <span>Total</span>
-            <span>${boxTotal.toLocaleString('es-AR')}</span>
+            <span>${boxTotal.toLocaleString("es-AR")}</span>
           </div>
         </div>
 
@@ -138,9 +153,8 @@ function handleWhatsApp() {
           <WhatsAppIcon />
           Pedir por WhatsApp
         </button>
-
       </div>
-    )
+    );
   }
 
   /* ── Modo caja (x4 o x6) ── */
@@ -200,7 +214,7 @@ function handleWhatsApp() {
                   >
                     No, quiero reemplazar un muffin
                   </button>
-    
+
                   <button
                     className={styles.pendingCancelBtn}
                     onClick={cancelPending}
@@ -273,7 +287,10 @@ function handleWhatsApp() {
           <span>
             {filledCount} muffin{filledCount !== 1 ? "s" : ""}
           </span>
-          <span>${unitPrice.toLocaleString("es-AR")} c/u</span>
+          {!hasMixed && items.length > 0 && (
+            <span>${items[0].discountPrice.toLocaleString("es-AR")} c/u</span>
+          )}
+          {hasMixed && <span>Precio normal (mixto)</span>}
         </div>
         {savings > 0 && (
           <div className={`${styles.pricingRow} ${styles.savings}`}>

@@ -2,40 +2,47 @@ import { useState } from 'react'
 import { useCart } from '@hooks/useCart'
 import { formatPrice } from '@utils/formatPrice'
 import { isEnHorneada } from '@data/horneada'
+import {
+  PRICE_NORMAL,
+  PRICE_DISCOUNT,
+  PRICE_NORMAL_MEDIUM,
+  PRICE_DISCOUNT_MEDIUM,
+} from '@context/CartContext'   // ← ajustá el path si diferiste
 import styles from './ProductCard.module.css'
 
-/*
- * ProductCard
- *
- * Props:
- *   product  object  — item del catálogo (ver data/products.js)
- *
- * Muestra: imagen, nombre, descripción, precio, variante sin TACC,
- * tags, botón "agregar al carrito" con feedback visual.
- */
+const SIZE_CONFIG = {
+  grande:  { normalPrice: PRICE_NORMAL,        discountPrice: PRICE_DISCOUNT,        grams: '160g' },
+  mediano: { normalPrice: PRICE_NORMAL_MEDIUM,  discountPrice: PRICE_DISCOUNT_MEDIUM, grams: '90g'  },
+}
+
 export default function ProductCard({ product }) {
   const { addItem } = useCart()
+  const [size, setSize]   = useState('grande')
   const [added, setAdded] = useState(false)
   const enHorneada = isEnHorneada(product.id)
+
+  const config = SIZE_CONFIG[size]
 
   function handleAdd() {
     if (!product.available || added) return
 
-   const itemToAdd = {
+    addItem({
       ...product,
-      price: product.price,
-    }
+      id:            `${product.id}-${size}`,   // id único por tamaño
+      productId:     product.id,                 // id original por si lo necesitás
+      size,
+      normalPrice:   config.normalPrice,
+      discountPrice: config.discountPrice,
+      price:         config.normalPrice,         // fallback display
+    })
 
-    addItem(itemToAdd)
-
-    // Feedback visual: "¡Agregado!" por 1.5s
     setAdded(true)
     setTimeout(function resetAdded() { setAdded(false) }, 1500)
   }
 
   return (
     <article
-      className={`${styles.card} ${!product.available ? styles.unavailable : ""}`}
+      className={`${styles.card} ${!product.available ? styles.unavailable : ''}`}
       aria-label={`Muffin ${product.name}`}
     >
       {/* ── Imagen ── */}
@@ -46,11 +53,9 @@ export default function ProductCard({ product }) {
           className={styles.image}
           loading="lazy"
           onError={function handleImgError(e) {
-            e.currentTarget.src = "/images/placeholder-muffin.jpg";
+            e.currentTarget.src = '/images/placeholder-muffin.jpg'
           }}
         />
-
-        {/* Stack de chips sobre la imagen */}
         <div className={styles.chipsStack}>
           {!product.available && (
             <div className={styles.chipUnavailable}>Sin stock</div>
@@ -58,7 +63,7 @@ export default function ProductCard({ product }) {
           {enHorneada && product.available && (
             <div className={styles.chipHorneada}>🔥 En esta horneada</div>
           )}
-          {product.tags.includes("especial-temporada") && product.available && (
+          {product.tags.includes('especial-temporada') && product.available && (
             <div className={styles.chipSpecial}>🌿 Temporada</div>
           )}
         </div>
@@ -66,31 +71,22 @@ export default function ProductCard({ product }) {
 
       {/* ── Contenido ── */}
       <div className={styles.body}>
-        {/* Nombre */}
         <h3 className={styles.name}>{product.name}</h3>
-
-        {/* Descripción */}
         <p className={styles.description}>{product.description}</p>
 
-        {/* Tags relevantes */}
+        {/* Tags */}
         <div className={styles.tags}>
-          {product.tags.includes("vegano") && (
+          {product.tags.includes('vegano') && (
             <span className={`${styles.tag} ${styles.tagVegan}`}>Vegano</span>
           )}
-          {product.tags.includes("sin-azucar-refinada") && (
-            <span className={`${styles.tag} ${styles.tagSugar}`}>
-              Sin azúcar ref.
-            </span>
+          {product.tags.includes('sin-azucar-refinada') && (
+            <span className={`${styles.tag} ${styles.tagSugar}`}>Sin azúcar ref.</span>
           )}
-          {product.tags.includes("harina-de-almendras") && (
-            <span className={`${styles.tag} ${styles.tagAlmond}`}>
-              Harina de almendras
-            </span>
+          {product.tags.includes('harina-de-almendras') && (
+            <span className={`${styles.tag} ${styles.tagAlmond}`}>Harina de almendras</span>
           )}
-          {product.tags.includes("alto-proteico") && (
-            <span className={`${styles.tag} ${styles.tagProtein}`}>
-              Alto en proteína
-            </span>
+          {product.tags.includes('alto-proteico') && (
+            <span className={`${styles.tag} ${styles.tagProtein}`}>Alto en proteína</span>
           )}
           {product.tags.includes('base-legumbres') && (
             <span className={`${styles.tag} ${styles.tagLegumes}`}>Base de legumbres</span>
@@ -100,35 +96,45 @@ export default function ProductCard({ product }) {
           )}
         </div>
 
+        {/* ── Toggle de tamaño (local por card) ── */}
+        <div className={styles.sizeToggle} role="group" aria-label="Tamaño del muffin">
+          {Object.entries(SIZE_CONFIG).map(([key, cfg]) => (
+            <button
+              key={key}
+              className={`${styles.sizeBtn} ${size === key ? styles.sizeBtnActive : ''}`}
+              onClick={() => setSize(key)}
+              aria-pressed={size === key}
+            >
+              {key.charAt(0).toUpperCase() + key.slice(1)}
+              <span className={styles.sizeGrams}>{cfg.grams}</span>
+            </button>
+          ))}
+        </div>
 
         {/* Footer: precio + botón */}
         <div className={styles.footer}>
           <div className={styles.priceBlock}>
-            <span className={styles.price}>{formatPrice(product.price)}</span>
+            <span className={styles.price}>{formatPrice(config.normalPrice)}</span>
           </div>
 
           <button
-            className={`${styles.addButton} ${added ? styles.addButtonSuccess : ""}`}
+            className={`${styles.addButton} ${added ? styles.addButtonSuccess : ''}`}
             onClick={handleAdd}
             disabled={!product.available}
             aria-label={`Agregar ${product.name} al carrito`}
           >
             {!product.available ? (
-              "Sin stock"
+              'Sin stock'
             ) : added ? (
-              <>
-                <CheckIcon /> Agregado
-              </>
+              <><CheckIcon /> Agregado</>
             ) : (
-              <>
-                <PlusIcon /> Agregar
-              </>
+              <><PlusIcon /> Agregar</>
             )}
           </button>
         </div>
       </div>
     </article>
-  );
+  )
 }
 
 function PlusIcon() {

@@ -5,7 +5,7 @@ import { sendWhatsAppOrder } from '@utils/whatsapp'
 import styles from './CartSummary.module.css'
 
 export default function CartSummary({ onClose }) {
-  const { items, subtotal, clearCart, unitPrice } = useCart()
+  const { items, clearCart, hasMixed, isBox, boxTotal } = useCart()
   const [note, setNote]       = useState('')
   const [sending, setSending] = useState(false)
 
@@ -13,7 +13,8 @@ export default function CartSummary({ onClose }) {
     if (items.length === 0) return
     setSending(true)
     setTimeout(function executeOrder() {
-      sendWhatsAppOrder(items, unitPrice, note)
+      const applyDiscount = isBox && !hasMixed
+      sendWhatsAppOrder(items, applyDiscount, note)
       clearCart()
       setNote('')
       setSending(false)
@@ -48,7 +49,7 @@ export default function CartSummary({ onClose }) {
           <span className={styles.totalLabel}>
             Subtotal ({items.reduce(function(acc, i) { return acc + i.quantity }, 0)} unidades)
           </span>
-          <span className={styles.totalValue}>{formatPrice(subtotal)}</span>
+          <span className={styles.totalValue}>{formatPrice(boxTotal)}</span>
         </div>
         <p className={styles.shippingNote}>
           🚚 El envío se coordina por WhatsApp según tu zona.

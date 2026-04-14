@@ -9,7 +9,7 @@ import styles from './CartItem.module.css'
  *   item  object  — item del carrito (product + quantity)
  */
 export default function CartItem({ item }) {
-  const { updateQuantity, removeItem } = useCart()
+  const { updateQuantity, removeItem, hasMixed, isBox } = useCart()
 
   function handleDecrease() {
     updateQuantity(item.id, item.quantity - 1)
@@ -24,7 +24,9 @@ export default function CartItem({ item }) {
     removeItem(item.id)
   }
 
-  const subtotal = item.price * item.quantity
+  const applyDiscount = isBox && !hasMixed;
+  const unitPrice = applyDiscount ? item.discountPrice : item.normalPrice;
+  const subtotal = unitPrice * item.quantity;
 
   return (
     <li className={styles.item}>
@@ -32,7 +34,7 @@ export default function CartItem({ item }) {
       {/* ── Info del producto ── */}
       <div className={styles.info}>
         <p className={styles.name}>{item.name}</p>
-        <p className={styles.unitPrice}>{formatPrice(item.price)} c/u</p>
+        <p className={styles.unitPrice}>{formatPrice(unitPrice)} c/u</p>
       </div>
 
       {/* ── Controles y subtotal ── */}

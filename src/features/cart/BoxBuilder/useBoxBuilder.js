@@ -9,7 +9,7 @@ export function useBoxBuilder() {
     items,
     boxSize,
     itemCount,
-    unitPrice,
+    hasMixed,  
     boxTotal,
     savings,
     isBoxComplete,
@@ -87,7 +87,7 @@ export function useBoxBuilder() {
     showUpsell,
 
     // Precios
-    unitPrice,
+    hasMixed,
     boxTotal,
     savings,
     PRICE_NORMAL,

@@ -5,6 +5,9 @@ import { createContext, useReducer, useEffect, useState } from 'react'
  * -------------------------------------------------- */
 export const PRICE_NORMAL   = 2400   // individual o menos de 4
 export const PRICE_DISCOUNT = 2250   // caja de 4 o 6
+// ── Mediano (90g) ──────────────────────────────────────
+export const PRICE_NORMAL_MEDIUM   = 1800   // mediano, individual
+export const PRICE_DISCOUNT_MEDIUM = 1500   // mediano, box x4 o x6
 
 /* --------------------------------------------------
  * 2. TIPOS DE ACCIÓN
@@ -171,39 +174,48 @@ function replaceSlot(replaceItemId) {
   }
 
   // --- Valores derivados ---
+const itemCount = state.items.reduce(
+  (total, item) => total + item.quantity,
+  0
+)
 
-  const itemCount = state.items.reduce(
-    (total, item) => total + item.quantity,
-    0
-  )
+const isIndividual = state.boxSize === 'individual'
+const isBox        = state.boxSize === 4 || state.boxSize === 6
 
-  const isIndividual = state.boxSize === 'individual'
-  const isBox        = state.boxSize === 4 || state.boxSize === 6
+// ── Detectar carrito mixto ──────────────────────────────
+const sizes = [...new Set(state.items.map(i => i.size).filter(Boolean))]
+const hasMixed = sizes.length > 1
 
-  // Descuento solo aplica en modo caja con 4 o más unidades
-  const unitPrice = isBox ? PRICE_DISCOUNT : PRICE_NORMAL
+// Descuento solo si: modo caja + no mezclado
+const applyDiscount = isBox && !hasMixed
 
-  const boxTotal = itemCount * unitPrice
+// Total calculado ítem por ítem (cada uno tiene su propio precio)
+const boxTotal = state.items.reduce((acc, item) => {
+  const price = applyDiscount ? item.discountPrice : item.normalPrice
+  return acc + price * item.quantity
+}, 0)
 
-  // Ahorro vs precio normal
-  const savings = isBox ? (PRICE_NORMAL - PRICE_DISCOUNT) * itemCount : 0
+// Ahorro vs precio normal
+const savings = applyDiscount
+  ? state.items.reduce((acc, item) =>
+      acc + (item.normalPrice - item.discountPrice) * item.quantity, 0)
+  : 0
 
-  // Completo: individual siempre listo si hay items, caja cuando alcanza el tamaño
-  const isBoxComplete = isIndividual
-    ? itemCount > 0
-    : isBox && itemCount >= state.boxSize
+// Completo: individual siempre listo si hay items, caja cuando alcanza el tamaño
+const isBoxComplete = isIndividual
+  ? itemCount > 0
+  : isBox && itemCount >= state.boxSize
 
-  // ¿Se puede seguir agregando?
-  const canAddMore = isIndividual
-    ? true
-    : isBox && itemCount < state.boxSize
+// ¿Se puede seguir agregando?
+const canAddMore = isIndividual
+  ? true
+  : isBox && itemCount < state.boxSize
 
   const contextValue = {
     // Estado
     items: state.items,
     boxSize: state.boxSize,
     itemCount,
-    unitPrice,
     boxTotal,
     savings,
     isBoxComplete,
@@ -222,6 +234,7 @@ function replaceSlot(replaceItemId) {
     updateQuantity,
     clearCart,
     setBoxSize,
+    hasMixed,
   };
 
   return (

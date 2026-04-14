@@ -276,3 +276,42 @@
   60%  { transform: scale(1.06); }
   100% { transform: scale(1); }
 }
+
+/* ── Toggle de tamaño ─────────────────────────── */
+.sizeToggle {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.sizeBtn {
+  flex: 1;
+  padding: 0.35rem 0.5rem;
+  border: 1.5px solid var(--color-trigo, #c8a96e);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--color-cacao, #5c3d2e);
+  font-size: 0.8rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3rem;
+}
+
+.sizeBtn:hover {
+  background: var(--color-trigo-light, #f5ead8);
+}
+
+.sizeBtnActive {
+  background: var(--color-trigo, #c8a96e);
+  color: #fff;
+  border-color: var(--color-trigo, #c8a96e);
+}
+
+.sizeGrams {
+  font-size: 0.7rem;
+  opacity: 0.8;
+}
