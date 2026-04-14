@@ -1,324 +1,176 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { useBoxBuilder } from './useBoxBuilder'
-import { BoxSizeSelector } from './BoxSizeSelector'
-import { BoxSlot } from './BoxSlot'
 import { buildWhatsAppURL } from '@utils/whatsapp'
+import { DISCOUNT_THRESHOLD } from '@context/CartContext'
 import styles from './BoxBuilder.module.css'
 
 export function BoxBuilder({ onClose }) {
   const {
     items,
-    boxSize,
-    slots,
-    filledCount,
-    emptyCount,
-    isBoxComplete,
-    showUpsell,
-    isIndividual,
-    isBox,
-    hasMixed,
+    itemCount,
+    applyDiscount,
     boxTotal,
     savings,
-    itemCount,
-    removeUnit,
+    units,
+    updateQuantity,
     clearCart,
-    setBoxSize,
-    pendingItem,
-    confirmUpgrade,
-    cancelPending,
-    replaceSlot,
-  } = useBoxBuilder();
+  } = useBoxBuilder()
 
- 
-const [lidClosed, setLidClosed] = useState(false)
-const [editMode, setEditMode]   = useState(false)
-const [replaceMode, setReplaceMode] = useState(false)
-const [success, setSuccess] = useState(false)
+  const [success, setSuccess] = useState(false)
 
-useEffect(() => {
-  if (isBoxComplete && isBox && !editMode) {
-    const delay = boxSize === 6 ? 1600 : 1000
-    const timer = setTimeout(() => setLidClosed(true), delay)
-    return () => clearTimeout(timer)
-  } else {
-    setLidClosed(false)
+  const bagClosed    = itemCount >= DISCOUNT_THRESHOLD
+  const visibleUnits = units.slice(0, 9)
+  const extraCount   = units.length - visibleUnits.length
+  const remaining    = DISCOUNT_THRESHOLD - itemCount
+
+  function handleWhatsApp() {
+    const url = buildWhatsAppURL(items, applyDiscount)
+    window.open(url, '_blank')
+    clearCart()
+    setSuccess(true)
   }
-}, [isBoxComplete, isBox, editMode, boxSize])
 
-useEffect(() => {
-  if (!isBoxComplete) setEditMode(false)
-}, [isBoxComplete])
-
-useEffect(() => {
-  if (!pendingItem) setReplaceMode(false)
-}, [pendingItem])
-
-// Recién acá el early return
-if (!boxSize) return <BoxSizeSelector />
-
-if (success) {
-  return (
-    <div className={styles.successWrapper}>
-      <span className={styles.successEmoji}>🧁</span>
-      <h3 className={styles.successTitle}>¡Pedido enviado!</h3>
-      <p className={styles.successText}>
-        Te estamos esperando en WhatsApp para confirmar tu pedido y coordinar la entrega.
-      </p>
-      <p className={styles.successSub}>De otra semilla. Del mismo amor. 🌿</p>
-      <button
-        className={styles.successBtn}
-        onClick={() => setSuccess(false)}
-      >
-        ¡Perfecto!
-      </button>
-    </div>
-  )
-}
-
-
-function handleWhatsApp() {
-  const applyDiscount = isBox && !hasMixed
-  const url = buildWhatsAppURL(items, applyDiscount)
-  window.open(url, '_blank')
-  clearCart()
-  setSuccess(true)
-}
-  /* ── Modo individual ── */
-  if (isIndividual) {
+  /* ── Pantalla de éxito ── */
+  if (success) {
     return (
-      <div className={styles.wrapper}>
-        <div className={styles.header}>
-          <span className={styles.title}>Tu pedido</span>
-          <button className={styles.resetBtn} onClick={clearCart}>
-            Empezar de nuevo
-          </button>
-        </div>
-
-        <ul className={styles.individualList}>
-          {items.map((item) => (
-            <li key={item.id} className={styles.individualItem}>
-              <img
-                src={item.image}
-                alt={item.name}
-                className={styles.individualImg}
-              />
-              <div className={styles.individualInfo}>
-                <span className={styles.individualName}>{item.name}</span>
-                <span className={styles.individualQty}>{item.quantity} u.</span>
-              </div>
-              <span className={styles.individualPrice}>
-                ${(item.quantity * item.normalPrice).toLocaleString("es-AR")}
-              </span>
-            </li>
-          ))}
-        </ul>
-
-        {itemCount >= 1 && (
-          <div className={styles.upsellIndividual}>
-            <span>🧁 ¿Armamos una caja con descuento?</span>
-            <div className={styles.upsellActions}>
-              <button
-                onClick={() => setBoxSize(4)}
-                className={styles.upsellBtn}
-              >
-                Caja x4
-              </button>
-              <button
-                onClick={() => setBoxSize(6)}
-                className={styles.upsellBtn}
-              >
-                Caja x6
-              </button>
-            </div>
-          </div>
-        )}
-
-        <div className={styles.pricing}>
-          <div className={styles.pricingRow}>
-            <span>
-              {itemCount} muffin{itemCount !== 1 ? "s" : ""}
-            </span>
-            <span>Precio normal</span>
-          </div>
-          <div className={`${styles.pricingRow} ${styles.total}`}>
-            <span>Total</span>
-            <span>${boxTotal.toLocaleString("es-AR")}</span>
-          </div>
-        </div>
-
-        <button
-          className={`${styles.whatsappBtn} ${styles.whatsappActive}`}
-          onClick={handleWhatsApp}
-        >
-          <WhatsAppIcon />
-          Pedir por WhatsApp
+      <div className={styles.successWrapper}>
+        <span className={styles.successEmoji}>🧁</span>
+        <h3 className={styles.successTitle}>¡Pedido enviado!</h3>
+        <p className={styles.successText}>
+          Te estamos esperando en WhatsApp para confirmar tu pedido y coordinar la entrega.
+        </p>
+        <p className={styles.successSub}>De otra semilla. Del mismo amor. 🌿</p>
+        <button className={styles.successBtn} onClick={() => setSuccess(false)}>
+          ¡Perfecto!
         </button>
       </div>
-    );
+    )
   }
 
-  /* ── Modo caja (x4 o x6) ── */
   return (
     <div className={styles.wrapper}>
+
+      {/* ── Header ── */}
       <div className={styles.header}>
-        <span className={styles.title}>Tu caja x{boxSize}</span>
-        <button className={styles.resetBtn} onClick={clearCart}>
-          Empezar de nuevo
-        </button>
+        <span className={styles.title}>Tu pedido</span>
+        <button className={styles.resetBtn} onClick={clearCart}>Vaciar</button>
       </div>
 
-      <div className={`${styles.box} ${lidClosed ? styles.complete : ""}`}>
-        <div className={`${styles.lid} ${lidClosed ? styles.lidClosed : ""}`}>
-          <span className={styles.lidEmoji}>📦</span>
-          <span className={styles.lidText}>¡Lista para enviar!</span>
+      {/* ── Bolsa kraft ── */}
+      <div className={`${styles.bag} ${bagClosed ? styles.bagClosed : ''}`}>
+        {/* Doblez superior */}
+        <div className={`${styles.bagFold} ${bagClosed ? styles.bagFoldClosed : ''}`}>
+          {bagClosed && (
+            <span className={styles.bagFoldLabel}>¡Lista para enviar! 🎉</span>
+          )}
         </div>
 
-        <div
-          className={`${styles.grid} ${boxSize === 6 ? styles.grid6 : styles.grid4}`}
-        >
-          {slots.map((item, index) => (
-            <BoxSlot
-              key={index}
-              item={item}
-              index={index}
-              onRemove={removeUnit}
-              onAdd={onClose}
-            />
+        {/* Interior con thumbnails */}
+        <div className={styles.bagInterior}>
+          {visibleUnits.map((item, i) => (
+            <div
+              key={i}
+              className={styles.bagThumb}
+              style={{ '--i': i }}
+              title={item.name}
+            >
+              <img src={item.image} alt={item.name} />
+            </div>
           ))}
-
-          {/* ── Overlay de item pendiente ── */}
-          {pendingItem && (
-            <div className={styles.pendingOverlay}>
-              {!replaceMode ? (
-                /* Vista de upsell */
-                <>
-                  <span className={styles.pendingEmoji}>🎁</span>
-                  <p className={styles.pendingTitle}>
-                    ¡Estás eligiendo más de 4!
-                  </p>
-                  <p className={styles.pendingText}>
-                    Pasate a la caja x6 y llevate{" "}
-                    <strong>{pendingItem.product.name}</strong> sin resignar
-                    nada. Mismo precio unitario, más variedad.
-                  </p>
-                  <button
-                    className={styles.pendingUpgradeSoft}
-                    onClick={confirmUpgrade}
-                  >
-                    ¿Y si me llevo 6? Mismo precio x 🧁 😏
-                  </button>
-
-                  <button
-                    className={styles.pendingReplaceBtn}
-                    onClick={() => setReplaceMode(true)}
-                  >
-                    No, quiero reemplazar un muffin
-                  </button>
-
-                  <button
-                    className={styles.pendingCancelBtn}
-                    onClick={cancelPending}
-                  >
-                    Cancelar
-                  </button>
-                </>
-              ) : (
-                /* Vista de reemplazo */
-                <>
-                  <p className={styles.pendingTitle}>
-                    ¿Cuál querés cambiar por{" "}
-                    <strong>{pendingItem.product.name}</strong>?
-                  </p>
-                  <div className={styles.replaceList}>
-                    {items.map((item) => (
-                      <button
-                        key={item.id}
-                        className={styles.replaceItem}
-                        onClick={() => replaceSlot(item.id)}
-                      >
-                        <img
-                          src={item.image}
-                          alt={item.name}
-                          className={styles.replaceImg}
-                        />
-                        <span className={styles.replaceName}>{item.name}</span>
-                      </button>
-                    ))}
-                  </div>
-                  <button
-                    className={styles.pendingCancelBtn}
-                    onClick={() => setReplaceMode(false)}
-                  >
-                    ← Volver
-                  </button>
-                </>
-              )}
+          {extraCount > 0 && (
+            <div className={`${styles.bagThumb} ${styles.bagThumbExtra}`}>
+              +{extraCount}
             </div>
           )}
         </div>
       </div>
 
-      {showUpsell && (
-        <div className={styles.upsellBox}>
-          <p className={styles.upsellText}>
-            🎁 ¿Vas por una caja x6? Podés agregar 2 más al mismo precio.
-          </p>
-          <div className={styles.upsellActions}>
-            <button className={styles.upsellBtn} onClick={() => setBoxSize(6)}>
-              Sí, quiero x6
-            </button>
-            <button className={styles.upsellSecondary} onClick={() => {}}>
-              No, me quedo con x4
-            </button>
-          </div>
+      {/* ── Badge de descuento ── */}
+      {applyDiscount ? (
+        <div className={styles.discountBadge}>
+          🎁 Precio especial activo — ahorrás ${savings.toLocaleString('es-AR')}
         </div>
-      )}
-
-      {!isBoxComplete && (
-        <p className={styles.status}>
-          {emptyCount === boxSize
-            ? "Tocá un slot para elegir un muffin 👆"
-            : `Faltan ${emptyCount} muffin${emptyCount !== 1 ? "s" : ""} para completar la caja`}
+      ) : (
+        <p className={styles.discountHint}>
+          {remaining === 1
+            ? '¡Falta 1 muffin para el precio especial! 🛍️'
+            : `Agregá ${remaining} más para activar el precio especial 🛍️`
+          }
         </p>
       )}
 
+      {/* ── Lista de ítems ── */}
+      <ul className={styles.itemList}>
+        {items.map(item => {
+          const unitPrice = applyDiscount ? item.discountPrice : item.normalPrice
+          return (
+            <li key={item.id} className={styles.itemRow}>
+              <img src={item.image} alt={item.name} className={styles.itemImg} />
+              <div className={styles.itemInfo}>
+                <span className={styles.itemName}>{item.name}</span>
+                <span className={styles.itemMeta}>
+                  {item.size === 'mediano' ? '90g' : '160g'}
+                  {' · '}${unitPrice.toLocaleString('es-AR')} c/u
+                </span>
+              </div>
+              <div className={styles.stepper}>
+                <button
+                  className={styles.stepBtn}
+                  onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                  aria-label="Restar uno"
+                >
+                  {item.quantity === 1 ? <TrashIcon /> : '−'}
+                </button>
+                <span className={styles.stepCount}>{item.quantity}</span>
+                <button
+                  className={styles.stepBtn}
+                  onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                  aria-label="Sumar uno"
+                >
+                  +
+                </button>
+              </div>
+              <span className={styles.itemSubtotal}>
+                ${(unitPrice * item.quantity).toLocaleString('es-AR')}
+              </span>
+            </li>
+          )
+        })}
+      </ul>
+
+      {/* ── Pricing ── */}
       <div className={styles.pricing}>
-        <div className={styles.pricingRow}>
-          <span>
-            {filledCount} muffin{filledCount !== 1 ? "s" : ""}
-          </span>
-          {!hasMixed && items.length > 0 && (
-            <span>${items[0].discountPrice.toLocaleString("es-AR")} c/u</span>
-          )}
-          {hasMixed && <span>Precio normal (mixto)</span>}
-        </div>
-        {savings > 0 && (
-          <div className={`${styles.pricingRow} ${styles.savings}`}>
-            <span>Ahorro de caja</span>
-            <span>-${savings.toLocaleString("es-AR")}</span>
+        {applyDiscount && (
+          <div className={styles.pricingRow}>
+            <span>Descuento bolsa</span>
+            <span className={styles.savingsValue}>-${savings.toLocaleString('es-AR')}</span>
           </div>
         )}
         <div className={`${styles.pricingRow} ${styles.total}`}>
           <span>Total</span>
-          <span>${boxTotal.toLocaleString("es-AR")}</span>
+          <span>${boxTotal.toLocaleString('es-AR')}</span>
         </div>
       </div>
 
-      <button
-        className={`${styles.whatsappBtn} ${lidClosed ? styles.whatsappActive : ""}`}
-        onClick={handleWhatsApp}
-        disabled={!lidClosed}
-      >
-        {lidClosed ? (
-          <>
-            <WhatsAppIcon /> Pedir por WhatsApp
-          </>
-        ) : (
-          `Completá la caja (faltan ${emptyCount})`
-        )}
+      {/* ── WhatsApp ── */}
+      <button className={`${styles.whatsappBtn} ${styles.whatsappActive}`} onClick={handleWhatsApp}>
+        <WhatsAppIcon /> Pedir por WhatsApp
       </button>
+
     </div>
-  );
+  )
+}
+
+function TrashIcon() {
+  return (
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none"
+      stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <polyline points="3 6 5 6 21 6" />
+      <path d="M19 6l-1 14H6L5 6" />
+      <path d="M10 11v6M14 11v6" />
+      <path d="M9 6V4h6v2" />
+    </svg>
+  )
 }
 
 function WhatsAppIcon() {

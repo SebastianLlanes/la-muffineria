@@ -27,7 +27,7 @@ function App() {
   }
 
   return (
-    <CartProvider onCartOpen={openCart}>
+    <CartProvider >
       {!splashDone && <SplashScreen onComplete={handleSplashComplete} />}
       <div className={styles.app}>
         <Navbar onCartClick={openCart} />
