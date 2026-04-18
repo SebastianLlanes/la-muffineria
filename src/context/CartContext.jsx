@@ -5,8 +5,8 @@ import { createContext, useReducer, useEffect } from 'react'
  * -------------------------------------------------- */
 export const PRICE_NORMAL          = 2400
 export const PRICE_DISCOUNT        = 2250
-export const PRICE_NORMAL_MEDIUM   = 1800
-export const PRICE_DISCOUNT_MEDIUM = 1500
+export const PRICE_NORMAL_MEDIUM   = 2000
+export const PRICE_DISCOUNT_MEDIUM = 1800
 export const DISCOUNT_THRESHOLD   = 6   // A partir de cuántas unidades se aplica el descuento
 
 /* --------------------------------------------------
