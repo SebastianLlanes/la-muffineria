@@ -1,16 +1,8 @@
 import { createContext, useReducer, useEffect } from 'react'
+import { usePrecios } from '@/firebase/usePrecios'
 
 /* --------------------------------------------------
- * 1. PRECIOS
- * -------------------------------------------------- */
-export const PRICE_NORMAL          = 2400
-export const PRICE_DISCOUNT        = 2250
-export const PRICE_NORMAL_MEDIUM   = 2000
-export const PRICE_DISCOUNT_MEDIUM = 1800
-export const DISCOUNT_THRESHOLD   = 6   // A partir de cuántas unidades se aplica el descuento
-
-/* --------------------------------------------------
- * 2. TIPOS DE ACCIÓN
+ * 1. TIPOS DE ACCIÓN
  * -------------------------------------------------- */
 export const CART_ACTIONS = {
   ADD_ITEM:        'ADD_ITEM',
@@ -18,9 +10,11 @@ export const CART_ACTIONS = {
   UPDATE_QUANTITY: 'UPDATE_QUANTITY',
   CLEAR_CART:      'CLEAR_CART',
 }
- 
+
+export const DISCOUNT_THRESHOLD = 6 // fallback estático — se sobreescribe con Firestore
+
 /* --------------------------------------------------
- * 3. STORAGE
+ * 2. STORAGE
  * -------------------------------------------------- */
 const STORAGE_KEY = 'la-muffineria-cart'
 
@@ -34,7 +28,7 @@ function loadFromStorage() {
 }
 
 /* --------------------------------------------------
- * 4. REDUCER
+ * 3. REDUCER
  * -------------------------------------------------- */
 function cartReducer(state, action) {
   switch (action.type) {
@@ -77,12 +71,13 @@ function cartReducer(state, action) {
 }
 
 /* --------------------------------------------------
- * 5. CONTEXT + PROVIDER
+ * 4. CONTEXT + PROVIDER
  * -------------------------------------------------- */
 export const CartContext = createContext(null)
 
 export function CartProvider({ children }) {
   const [state, dispatch] = useReducer(cartReducer, loadFromStorage())
+  const { precios, loading: preciosLoading } = usePrecios()
 
   useEffect(function persistCart() {
     try {
@@ -105,13 +100,11 @@ export function CartProvider({ children }) {
     dispatch({ type: CART_ACTIONS.CLEAR_CART })
   }
 
-  // ── Valores derivados ──────────────────────────────
+  const umbral = precios.umbralDescuento
   const itemCount = state.items.reduce((t, i) => t + i.quantity, 0)
-
-  const sizes    = [...new Set(state.items.map(i => i.size).filter(Boolean))]
+  const sizes = [...new Set(state.items.map(i => i.size).filter(Boolean))]
   const hasMixed = sizes.length > 1
-
-  const applyDiscount = itemCount >= DISCOUNT_THRESHOLD
+  const applyDiscount = itemCount >= umbral
 
   const boxTotal = state.items.reduce((acc, item) => {
     const price = applyDiscount ? item.discountPrice : item.normalPrice
@@ -132,6 +125,8 @@ export function CartProvider({ children }) {
       boxTotal,
       savings,
       isEmpty: state.items.length === 0,
+      precios,
+      preciosLoading,
       addItem,
       removeItem,
       updateQuantity,

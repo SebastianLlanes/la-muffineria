@@ -2,27 +2,29 @@ import { useState } from 'react'
 import { useCart } from '@hooks/useCart'
 import { formatPrice } from '@utils/formatPrice'
 import { isEnHorneada } from '@data/horneada'
-import {
-  PRICE_NORMAL,
-  PRICE_DISCOUNT,
-  PRICE_NORMAL_MEDIUM,
-  PRICE_DISCOUNT_MEDIUM,
-} from '@context/CartContext'   // ← ajustá el path si diferiste
 import styles from './ProductCard.module.css'
 
-const SIZE_CONFIG = {
-  grande:  { normalPrice: PRICE_NORMAL,        discountPrice: PRICE_DISCOUNT,        grams: '160g' },
-  mediano: { normalPrice: PRICE_NORMAL_MEDIUM,  discountPrice: PRICE_DISCOUNT_MEDIUM, grams: '90g'  },
-}
-
 export default function ProductCard({ product }) {
-  const { addItem } = useCart()
+  const { addItem, precios } = useCart()
   const [size, setSize]   = useState('grande')
   const [added, setAdded] = useState(false)
   const enHorneada = isEnHorneada(product.id)
 
-  const config = SIZE_CONFIG[size]
+   const SIZE_CONFIG = {                     // ← después SIZE_CONFIG
+    grande:  {
+      normalPrice:   precios.precioNormalGrande,
+      discountPrice: precios.precioDescuentoGrande,
+      grams: '160g'
+    },
+    mediano: {
+      normalPrice:   precios.precioNormalMediano,
+      discountPrice: precios.precioDescuentoMediano,
+      grams: '90g'
+    },
+  }
 
+  const config = SIZE_CONFIG[size]
+  
   function handleAdd() {
     if (!product.available || added) return
 
