@@ -372,3 +372,25 @@
   opacity: 0.85;
   transform: translateY(-1px);
 }
+
+.nombreInput {
+  width: 100%;
+  padding: 0.65rem 1rem;
+  border: 1.5px solid var(--color-trigo, #d4a96a);
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-family: inherit;
+  color: var(--color-cacao, #3b2314);
+  background: var(--color-crema, #fdf6ec);
+  outline: none;
+  margin-bottom: 0.5rem;
+  transition: border-color 0.2s;
+}
+
+.nombreInput:focus {
+  border-color: var(--color-oliva, #6b7c3e);
+}
+
+.nombreInput::placeholder {
+  color: #b0a090;
+}

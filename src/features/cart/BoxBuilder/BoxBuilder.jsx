@@ -18,17 +18,23 @@ export function BoxBuilder({ onClose }) {
   } = useBoxBuilder()
 
   const [success, setSuccess] = useState(false)
+  const [nombreCliente, setNombreCliente] = useState('')
 
   const bagClosed    = itemCount >= DISCOUNT_THRESHOLD
   const visibleUnits = units.slice(0, 9)
   const extraCount   = units.length - visibleUnits.length
   const remaining    = DISCOUNT_THRESHOLD - itemCount
 
-  async function handleWhatsApp() {
+async function handleWhatsApp() {
   const url = buildWhatsAppURL(items, applyDiscount)
+
+  // window.open ANTES del await — debe ejecutarse en el contexto
+  // directo del click o el browser lo bloquea como popup
+  window.open(url, '_blank')
 
   try {
     await registrarPedido({
+      cliente: nombreCliente.trim() || 'Sin nombre',
       items: items.map(item => ({
         id:       item.id,
         name:     item.name,
@@ -36,15 +42,14 @@ export function BoxBuilder({ onClose }) {
         size:     item.size,
         precio:   applyDiscount ? item.discountPrice : item.normalPrice,
       })),
-      total:          boxTotal,
+      total:         boxTotal,
       applyDiscount,
-      savings:        applyDiscount ? savings : 0,
+      savings:       applyDiscount ? savings : 0,
     })
   } catch (error) {
     console.error('Error al registrar pedido:', error)
   }
 
-  window.open(url, '_blank')
   clearCart()
   setSuccess(true)
 }
@@ -68,17 +73,20 @@ export function BoxBuilder({ onClose }) {
 
   return (
     <div className={styles.wrapper}>
-
       {/* ── Header ── */}
       <div className={styles.header}>
         <span className={styles.title}>Tu pedido</span>
-        <button className={styles.resetBtn} onClick={clearCart}>Vaciar</button>
+        <button className={styles.resetBtn} onClick={clearCart}>
+          Vaciar
+        </button>
       </div>
 
       {/* ── Bolsa kraft ── */}
-      <div className={`${styles.bag} ${bagClosed ? styles.bagClosed : ''}`}>
+      <div className={`${styles.bag} ${bagClosed ? styles.bagClosed : ""}`}>
         {/* Doblez superior */}
-        <div className={`${styles.bagFold} ${bagClosed ? styles.bagFoldClosed : ''}`}>
+        <div
+          className={`${styles.bagFold} ${bagClosed ? styles.bagFoldClosed : ""}`}
+        >
           {bagClosed && (
             <span className={styles.bagFoldLabel}>¡Lista para enviar! 🎉</span>
           )}
@@ -90,7 +98,7 @@ export function BoxBuilder({ onClose }) {
             <div
               key={i}
               className={styles.bagThumb}
-              style={{ '--i': i }}
+              style={{ "--i": i }}
               title={item.name}
             >
               <img src={item.image} alt={item.name} />
@@ -107,29 +115,34 @@ export function BoxBuilder({ onClose }) {
       {/* ── Badge de descuento ── */}
       {applyDiscount ? (
         <div className={styles.discountBadge}>
-          🎁 Precio especial activo — ahorrás ${savings.toLocaleString('es-AR')}
+          🎁 Precio especial activo — ahorrás ${savings.toLocaleString("es-AR")}
         </div>
       ) : (
         <p className={styles.discountHint}>
           {remaining === 1
-            ? '¡Falta 1 muffin para el precio especial! 🛍️'
-            : `Agregá ${remaining} más para activar el precio especial 🛍️`
-          }
+            ? "¡Falta 1 muffin para el precio especial! 🛍️"
+            : `Agregá ${remaining} más para activar el precio especial 🛍️`}
         </p>
       )}
 
       {/* ── Lista de ítems ── */}
       <ul className={styles.itemList}>
-        {items.map(item => {
-          const unitPrice = applyDiscount ? item.discountPrice : item.normalPrice
+        {items.map((item) => {
+          const unitPrice = applyDiscount
+            ? item.discountPrice
+            : item.normalPrice;
           return (
             <li key={item.id} className={styles.itemRow}>
-              <img src={item.image} alt={item.name} className={styles.itemImg} />
+              <img
+                src={item.image}
+                alt={item.name}
+                className={styles.itemImg}
+              />
               <div className={styles.itemInfo}>
                 <span className={styles.itemName}>{item.name}</span>
                 <span className={styles.itemMeta}>
-                  {item.size === 'mediano' ? '90g' : '160g'}
-                  {' · '}${unitPrice.toLocaleString('es-AR')} c/u
+                  {item.size === "mediano" ? "90g" : "160g"}
+                  {" · "}${unitPrice.toLocaleString("es-AR")} c/u
                 </span>
               </div>
               <div className={styles.stepper}>
@@ -138,7 +151,7 @@ export function BoxBuilder({ onClose }) {
                   onClick={() => updateQuantity(item.id, item.quantity - 1)}
                   aria-label="Restar uno"
                 >
-                  {item.quantity === 1 ? <TrashIcon /> : '−'}
+                  {item.quantity === 1 ? <TrashIcon /> : "−"}
                 </button>
                 <span className={styles.stepCount}>{item.quantity}</span>
                 <button
@@ -150,10 +163,10 @@ export function BoxBuilder({ onClose }) {
                 </button>
               </div>
               <span className={styles.itemSubtotal}>
-                ${(unitPrice * item.quantity).toLocaleString('es-AR')}
+                ${(unitPrice * item.quantity).toLocaleString("es-AR")}
               </span>
             </li>
-          )
+          );
         })}
       </ul>
 
@@ -162,22 +175,33 @@ export function BoxBuilder({ onClose }) {
         {applyDiscount && (
           <div className={styles.pricingRow}>
             <span>Descuento bolsa</span>
-            <span className={styles.savingsValue}>-${savings.toLocaleString('es-AR')}</span>
+            <span className={styles.savingsValue}>
+              -${savings.toLocaleString("es-AR")}
+            </span>
           </div>
         )}
         <div className={`${styles.pricingRow} ${styles.total}`}>
           <span>Total</span>
-          <span>${boxTotal.toLocaleString('es-AR')}</span>
+          <span>${boxTotal.toLocaleString("es-AR")}</span>
         </div>
       </div>
 
+      <input
+        className={styles.nombreInput}
+        type="text"
+        placeholder="Tu nombre (para el pedido)"
+        value={nombreCliente}
+        onChange={(e) => setNombreCliente(e.target.value)}
+      />
       {/* ── WhatsApp ── */}
-      <button className={`${styles.whatsappBtn} ${styles.whatsappActive}`} onClick={handleWhatsApp}>
+      <button
+        className={`${styles.whatsappBtn} ${styles.whatsappActive}`}
+        onClick={handleWhatsApp}
+      >
         <WhatsAppIcon /> Pedir por WhatsApp
       </button>
-
     </div>
-  )
+  );
 }
 
 function TrashIcon() {
