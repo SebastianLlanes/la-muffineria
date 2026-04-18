@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useBoxBuilder } from './useBoxBuilder'
 import { buildWhatsAppURL } from '@utils/whatsapp'
+import { registrarPedido } from '@/firebase/pedidosService'
 import { DISCOUNT_THRESHOLD } from '@context/CartContext'
 import styles from './BoxBuilder.module.css'
 
@@ -23,12 +24,30 @@ export function BoxBuilder({ onClose }) {
   const extraCount   = units.length - visibleUnits.length
   const remaining    = DISCOUNT_THRESHOLD - itemCount
 
-  function handleWhatsApp() {
-    const url = buildWhatsAppURL(items, applyDiscount)
-    window.open(url, '_blank')
-    clearCart()
-    setSuccess(true)
+  async function handleWhatsApp() {
+  const url = buildWhatsAppURL(items, applyDiscount)
+
+  try {
+    await registrarPedido({
+      items: items.map(item => ({
+        id:       item.id,
+        name:     item.name,
+        quantity: item.quantity,
+        size:     item.size,
+        precio:   applyDiscount ? item.discountPrice : item.normalPrice,
+      })),
+      total:          boxTotal,
+      applyDiscount,
+      savings:        applyDiscount ? savings : 0,
+    })
+  } catch (error) {
+    console.error('Error al registrar pedido:', error)
   }
+
+  window.open(url, '_blank')
+  clearCart()
+  setSuccess(true)
+}
 
   /* ── Pantalla de éxito ── */
   if (success) {

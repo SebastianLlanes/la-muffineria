@@ -18,7 +18,7 @@ export const CART_ACTIONS = {
   UPDATE_QUANTITY: 'UPDATE_QUANTITY',
   CLEAR_CART:      'CLEAR_CART',
 }
-
+ 
 /* --------------------------------------------------
  * 3. STORAGE
  * -------------------------------------------------- */
