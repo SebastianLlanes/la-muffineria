@@ -47,8 +47,9 @@ async function handleWhatsApp() {
       savings:       applyDiscount ? savings : 0,
     })
   } catch (error) {
-    console.error('Error al registrar pedido:', error)
-  }
+  console.error('Error al registrar pedido:', error)
+  alert('Error: ' + error.message)
+}
 
   clearCart()
   setSuccess(true)
