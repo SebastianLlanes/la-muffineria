@@ -188,9 +188,9 @@ async function handleWhatsApp() {
       </div>
 
       <input
-        className={styles.nombreInput}
+        className={`${styles.nombreInput} ${!nombreCliente.trim() ? styles.nombreInputRequerido : ""}`}
         type="text"
-        placeholder="Tu nombre (para el pedido)"
+        placeholder="* Tu nombre (para el pedido)"
         value={nombreCliente}
         onChange={(e) => setNombreCliente(e.target.value)}
       />
@@ -198,6 +198,7 @@ async function handleWhatsApp() {
       <button
         className={`${styles.whatsappBtn} ${styles.whatsappActive}`}
         onClick={handleWhatsApp}
+        disabled={!nombreCliente.trim()}
       >
         <WhatsAppIcon /> Pedir por WhatsApp
       </button>

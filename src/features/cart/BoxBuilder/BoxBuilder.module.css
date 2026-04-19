@@ -394,3 +394,16 @@
 .nombreInput::placeholder {
   color: #b0a090;
 }
+
+.whatsappBtn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.nombreInputRequerido {
+  border-color: var(--color-trigo, #d4a96a);
+}
+
+.nombreInputRequerido::placeholder {
+  color: #c0845a;
+}
