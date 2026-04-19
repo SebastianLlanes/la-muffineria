@@ -26,11 +26,8 @@ export function BoxBuilder({ onClose }) {
   const remaining    = DISCOUNT_THRESHOLD - itemCount
 
 async function handleWhatsApp() {
-  const url = buildWhatsAppURL(items, applyDiscount)
-
-  // window.open ANTES del await — debe ejecutarse en el contexto
-  // directo del click o el browser lo bloquea como popup
-  window.open(url, '_blank')
+  // Abrimos ventana vacía sincrónicamente — el browser no la bloquea
+  const win = window.open('', '_blank', 'noopener,noreferrer')
 
   try {
     await registrarPedido({
@@ -47,9 +44,12 @@ async function handleWhatsApp() {
       savings:       applyDiscount ? savings : 0,
     })
   } catch (error) {
-  console.error('Error al registrar pedido:', error)
-  alert('Error: ' + error.message)
-}
+    console.error('Error al registrar pedido:', error)
+  }
+
+  // Ahora sí redirigimos la ventana ya abierta a WhatsApp
+  const url = buildWhatsAppURL(items, applyDiscount)
+  if (win) win.location.href = url
 
   clearCart()
   setSuccess(true)
