@@ -23,6 +23,18 @@
 
 
 export const products = [
+   {
+    id: "muf-006",
+    name: "Carrot Cake",
+    category: "sin-gluten",
+    description:
+      "Zanahoria, ralladura de naranja y almendras garrapiñadas. Cálido, con textura y ese toque cítrico que no te esperás.",
+    price: 2400,
+    image: "/images/carrot-cake.png",
+    available: true,
+    tags: ["sin-gluten", "novedad", "almendras"],
+    featured: true,
+  },
   {
     id: "muf-001",
     name: "Limón & Amapola",
@@ -86,18 +98,6 @@ export const products = [
     image: "/images/lentejas-cacao-nueces.png",
     available: true,
     tags: ["sin-gluten", "alto-proteico", "base-legumbres"],
-    featured: true,
-  },
-  {
-    id: "muf-006",
-    name: "Carrot Cake",
-    category: "sin-gluten",
-    description:
-      "Zanahoria, ralladura de naranja y almendras garrapiñadas. Cálido, con textura y ese toque cítrico que no te esperás.",
-    price: 2400,
-    image: "/images/carrot-cake.png",
-    available: true,
-    tags: ["sin-gluten", "novedad", "almendras"],
     featured: true,
   },
 ];
