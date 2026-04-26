@@ -72,7 +72,8 @@
 
 .chipUnavailable,
 .chipSpecial,
-.chipHorneada {
+.chipHorneada,
+.chipNew {
   padding: var(--space-1) var(--space-3);
   border-radius: var(--radius-full);
   font-family: var(--font-body);
@@ -106,7 +107,10 @@
   color: var(--color-crema);
 }
 
-
+.chipNew {
+  background-color: rgb(215, 238, 8);
+  color: black;
+}
 /* ── Body (contenido de texto) ── */
 .body {
   display: flex;
@@ -200,6 +204,11 @@
 .tagLegumes {
   background-color: var(--color-cacao-50, #f5f0eb);
   color: var(--color-cacao-600, #5c4a35);
+  border: 1px solid var(--color-cacao-200, #d6c4b0);
+}
+.tagAlmendras {
+  background-color: var(--color-cacao-50, #41270e);
+  color: var(--color-cacao-600, #fdfdfd);
   border: 1px solid var(--color-cacao-200, #d6c4b0);
 }
 

@@ -68,6 +68,9 @@ export default function ProductCard({ product }) {
           {product.tags.includes('especial-temporada') && product.available && (
             <div className={styles.chipSpecial}>🌿 Temporada</div>
           )}
+          {product.tags.includes('novedad') && product.available && (
+            <div className={styles.chipNew}>🆕 Novedad</div>
+          )}
         </div>
       </div>
 
@@ -95,6 +98,9 @@ export default function ProductCard({ product }) {
           )}
           {product.tags.includes('sin-gluten') && (
             <span className={`${styles.tag} ${styles.tagSinGluten}`}>Sin gluten</span>
+          )}
+          {product.tags.includes('almendras') && (
+            <span className={`${styles.tag} ${styles.tagAlmendras}`}>Almendras</span>
           )}
         </div>
 
