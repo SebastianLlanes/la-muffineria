@@ -28,7 +28,7 @@ export const products = [
     name: "Carrot Cake",
     category: "sin-gluten",
     description:
-      "Zanahoria, ralladura de naranja y almendras garrapiñadas. Cálido, con textura y ese toque cítrico que no te esperás.",
+      "Zanahoria, ralladura de naranja, canela y almendras garrapiñadas. Cálido, con textura y ese toque cítrico que no te esperás.",
     price: 2400,
     image: "/images/carrot-cake.png",
     available: true,
