@@ -5,12 +5,16 @@ import styles from './ProductGrid.module.css'
 
 export default function ProductGrid() {
 
+  const proximamente = useMemo(function() {
+    return products.filter(function(p) { return p.proximamente })
+  }, [])
+
   const disponibles = useMemo(function() {
-    return products.filter(function(p) { return p.available })
+    return products.filter(function(p) { return p.available && !p.proximamente })
   }, [])
 
   const noDisponibles = useMemo(function() {
-    return products.filter(function(p) { return !p.available })
+    return products.filter(function(p) { return !p.available && !p.proximamente })
   }, [])
 
   return (
@@ -26,6 +30,13 @@ export default function ProductGrid() {
         </div>
 
         <ul className={styles.grid} aria-label="Catálogo de muffins">
+          {proximamente.map(function(product) {
+            return (
+              <li key={product.id} className={styles.gridItem}>
+                <ProductCard product={product} />
+              </li>
+            )
+          })}
           {disponibles.map(function(product) {
             return (
               <li key={product.id} className={styles.gridItem}>

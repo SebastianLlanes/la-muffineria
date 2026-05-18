@@ -10,7 +10,56 @@ export default function ProductCard({ product }) {
   const [added, setAdded] = useState(false)
   const enHorneada = isEnHorneada(product.id)
 
-   const SIZE_CONFIG = {                     // ← después SIZE_CONFIG
+  // ── Modo "Próximamente" — render simplificado, sin lógica de carrito ──────
+  if (product.proximamente) {
+    return (
+      <article
+        className={`${styles.card} ${styles.cardProximamente}`}
+        aria-label={`Próximamente: nuevo muffin`}
+      >
+        {/* Imagen blureada */}
+        <div className={styles.imageWrapper}>
+          <img
+            src={product.image}
+            alt="Nuevo producto próximamente"
+            className={`${styles.image} ${styles.imageBlurred}`}
+            loading="lazy"
+          />
+          {/* Overlay con ícono */}
+          <div className={styles.proximamenteOverlay} aria-hidden="true">
+            <LockIcon />
+          </div>
+          {/* Chips */}
+          <div className={styles.chipsStack}>
+            <div className={styles.chipProximamente}>✨ Próximamente</div>
+            <div className={styles.chipSecretoPill}>🤫 Algo nuevo</div>
+          </div>
+        </div>
+
+        {/* Contenido */}
+        <div className={styles.body}>
+          <h3 className={`${styles.name} ${styles.nameProximamente}`}>
+            {product.name}
+          </h3>
+          <p className={`${styles.description} ${styles.teaserText}`}>
+            {product.teaserText}
+          </p>
+
+          {/* Footer teaser — sin precio, sin botón de agregar */}
+          <div className={styles.teaserFooter}>
+            <span className={styles.teaserLabel}>Muy pronto en La Muffinería</span>
+            <div className={styles.teaserDots} aria-hidden="true">
+              <span /><span /><span />
+            </div>
+          </div>
+        </div>
+      </article>
+    )
+  }
+
+  // ── Card normal ───────────────────────────────────────────────────────────
+
+  const SIZE_CONFIG = {
     grande:  {
       normalPrice:   precios.precioNormalGrande,
       discountPrice: precios.precioDescuentoGrande,
@@ -24,20 +73,18 @@ export default function ProductCard({ product }) {
   }
 
   const config = SIZE_CONFIG[size]
-  
+
   function handleAdd() {
     if (!product.available || added) return
-
     addItem({
       ...product,
-      id:            `${product.id}-${size}`,   // id único por tamaño
-      productId:     product.id,                 // id original por si lo necesitás
+      id:            `${product.id}-${size}`,
+      productId:     product.id,
       size,
       normalPrice:   config.normalPrice,
       discountPrice: config.discountPrice,
-      price:         config.normalPrice,         // fallback display
+      price:         config.normalPrice,
     })
-
     setAdded(true)
     setTimeout(function resetAdded() { setAdded(false) }, 1500)
   }
@@ -104,7 +151,7 @@ export default function ProductCard({ product }) {
           )}
         </div>
 
-        {/* ── Toggle de tamaño (local por card) ── */}
+        {/* Toggle de tamaño */}
         <div className={styles.sizeToggle} role="group" aria-label="Tamaño del muffin">
           {Object.entries(SIZE_CONFIG).map(([key, cfg]) => (
             <button
@@ -124,7 +171,6 @@ export default function ProductCard({ product }) {
           <div className={styles.priceBlock}>
             <span className={styles.price}>{formatPrice(config.normalPrice)}</span>
           </div>
-
           <button
             className={`${styles.addButton} ${added ? styles.addButtonSuccess : ''}`}
             onClick={handleAdd}
@@ -145,6 +191,8 @@ export default function ProductCard({ product }) {
   )
 }
 
+// ── Íconos ───────────────────────────────────────────────────────────────────
+
 function PlusIcon() {
   return (
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
@@ -160,6 +208,19 @@ function CheckIcon() {
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
       stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
       <polyline points="20 6 9 17 4 12" />
+    </svg>
+  )
+}
+
+function LockIcon() {
+  return (
+    <svg
+      width="40" height="40" viewBox="0 0 24 24" fill="none"
+      stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+      <path d="M7 11V7a5 5 0 0 1 10 0v4" />
     </svg>
   )
 }

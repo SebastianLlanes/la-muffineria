@@ -6,8 +6,11 @@
  *   [nombre]
  *   [descripción]
  *   [tags]
- *   [toggle sin TACC (si aplica)]
+ *   [toggle de tamaño]
  *   [precio | botón agregar]
+ *
+ * Modo especial:
+ *   .cardProximamente — imagen blureada, teaser copy, sin precio ni carrito
  */
 
 /* ── Card contenedor ── */
@@ -39,6 +42,155 @@
   box-shadow: var(--shadow-sm);
 }
 
+/* ── Modo próximamente ──────────────────────────── */
+.cardProximamente {
+  border: 1.5px dashed var(--color-rosa, #B87A8A);
+  background-color: var(--bg-surface);
+  /* Hover sutil — sí se puede interactuar visualmente */
+  cursor: default;
+}
+
+.cardProximamente:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+/* Imagen blureada */
+.imageBlurred {
+  filter: blur(14px) brightness(0.65) saturate(0.8);
+  transform: scale(1.06); /* compensa el borde del blur */
+  transition: filter var(--transition-slow);
+}
+
+.cardProximamente:hover .imageBlurred {
+  filter: blur(10px) brightness(0.55) saturate(0.7);
+}
+
+/* Overlay oscuro sobre la imagen */
+.proximamenteOverlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(59, 45, 31, 0.35) 0%,
+    rgba(59, 45, 31, 0.55) 100%
+  );
+  color: var(--color-crema, #F5F0E8);
+  pointer-events: none;
+}
+
+/* Nombre misterioso */
+.nameProximamente {
+  color: var(--color-cacao, #3B2D1F);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-size: var(--text-base);
+  opacity: 0.55;
+}
+
+/* Texto de intriga */
+.teaserText {
+  font-style: italic;
+  color: var(--text-secondary);
+  line-height: var(--leading-relaxed);
+  /* Mostrar completo, sin clamp */
+  display: block;
+  -webkit-line-clamp: unset;
+    line-clamp: unset;
+  overflow: visible;
+}
+
+/* Chips próximamente */
+.chipProximamente {
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-full);
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  font-weight: var(--font-semibold);
+  letter-spacing: 0.04em;
+  width: fit-content;
+  background-color: var(--color-rosa, #B87A8A);
+  color: var(--color-crema, #F5F0E8);
+  animation: proximamentePulse 2.8s ease-in-out infinite;
+}
+
+.chipSecretoPill {
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-full);
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  font-weight: var(--font-semibold);
+  letter-spacing: 0.02em;
+  width: fit-content;
+  background-color: rgba(59, 45, 31, 0.72); /* cacao semitransparente */
+  color: var(--color-crema, #F5F0E8);
+  backdrop-filter: blur(4px);
+}
+
+@keyframes proximamentePulse {
+  0%, 100% { opacity: 1;    transform: scale(1); }
+  50%       { opacity: 0.78; transform: scale(0.97); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .chipProximamente { animation: none; }
+}
+
+/* Footer teaser */
+.teaserFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  margin-top: auto;
+  padding-top: var(--space-3);
+  border-top: 1px dashed var(--color-rosa, #B87A8A);
+}
+
+.teaserLabel {
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  font-weight: var(--font-semibold);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-rosa, #B87A8A);
+}
+
+/* Tres puntos animados */
+.teaserDots {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+
+.teaserDots span {
+  display: block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: var(--color-rosa, #B87A8A);
+  animation: dotBounce 1.4s ease-in-out infinite both;
+}
+
+.teaserDots span:nth-child(1) { animation-delay: 0s; }
+.teaserDots span:nth-child(2) { animation-delay: 0.2s; }
+.teaserDots span:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes dotBounce {
+  0%, 80%, 100% { transform: scale(0.6); opacity: 0.4; }
+  40%            { transform: scale(1);   opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .teaserDots span { animation: none; opacity: 0.6; }
+}
+
+/* ─────────────────────────────────────────────── */
+/* Todo lo que sigue es código original sin cambios */
+/* ─────────────────────────────────────────────── */
 
 /* ── Imagen ── */
 .imageWrapper {
@@ -111,7 +263,8 @@
   background-color: rgb(215, 238, 8);
   color: black;
 }
-/* ── Body (contenido de texto) ── */
+
+/* ── Body ── */
 .body {
   display: flex;
   flex-direction: column;
@@ -126,7 +279,6 @@
   }
 }
 
-
 /* ── Nombre ── */
 .name {
   font-family: var(--font-display);
@@ -137,7 +289,6 @@
   margin: 0;
 }
 
-
 /* ── Descripción ── */
 .description {
   font-family: var(--font-body);
@@ -145,15 +296,12 @@
   color: var(--text-secondary);
   line-height: var(--leading-relaxed);
   margin: 0;
-
-  /* Máximo 3 líneas con ellipsis */
   display: -webkit-box;
   -webkit-line-clamp: 3;
    line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
-
 
 /* ── Tags ── */
 .tags {
@@ -201,19 +349,20 @@
   color: var(--color-trigo-600);
   border: 1px solid var(--color-trigo-200);
 }
+
 .tagLegumes {
   background-color: var(--color-cacao-50, #f5f0eb);
   color: var(--color-cacao-600, #5c4a35);
   border: 1px solid var(--color-cacao-200, #d6c4b0);
 }
+
 .tagAlmendras {
   background-color: var(--color-cacao-50, #41270e);
   color: var(--color-cacao-600, #fdfdfd);
   border: 1px solid var(--color-cacao-200, #d6c4b0);
 }
 
-
-/* ── Footer: precio + botón ── */
+/* ── Footer ── */
 .footer {
   display: flex;
   align-items: center;
@@ -237,7 +386,6 @@
   color: var(--brand-primary);
   line-height: 1;
 }
-
 
 /* ── Botón agregar ── */
 .addButton {
@@ -274,7 +422,6 @@
   cursor: not-allowed;
 }
 
-/* Estado "¡Agregado!" */
 .addButtonSuccess {
   background-color: var(--color-oliva-600) !important;
   animation: successPop var(--transition-spring) both;
@@ -286,7 +433,7 @@
   100% { transform: scale(1); }
 }
 
-/* ── Toggle de tamaño ─────────────────────────── */
+/* ── Toggle de tamaño ── */
 .sizeToggle {
   display: flex;
   gap: 0.5rem;
