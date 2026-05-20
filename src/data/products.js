@@ -25,24 +25,17 @@
 
 
 export const products = [
-   // ── Próximamente ──────────────────────────────────────────────────────────
-  // Reemplazá 'name', 'image' y 'teaserText' cuando tengas los datos reales.
-  // Cuando llegue el momento del lanzamiento: eliminá `proximamente` y `teaserText`,
-  // completá `description` y `price`, y ponés `available: true`. Listo.
   {
-    id: "muf-007",
-    name: "****** ****",
-    category: "especiales",
-    description: "",
-    teaserText:
-      "Algo nuevo está en camino. Una combinación que no viste venir. De otra semilla. Del mismo amor.",
-    price: 0,
-    image: "/images/bananasplit-img.png", // reemplazá con la imagen real cuando esté lista
-    available: false,
-    proximamente: true,
-    tags: [],
-    featured: false,
-  },
+  id: "muf-007",
+  name: "Banana Split",       // ← el nombre
+  category: "especiales",
+  description: "Banana en la masa, corazón de dulce de leche y frosting de coco. Un banana split que no necesita cuchara.",    // ← la descripción
+  price: 2400,                         // ← el precio
+  image: "/images/bananasplit-img.png",  // ← la imagen real
+  available: true,                     // ← true
+  tags: ["sin-gluten", "novedad" ],                // ← los tags que correspondan
+  featured: false,
+},
   {
     id: "muf-006",
     name: "Carrot Cake",
