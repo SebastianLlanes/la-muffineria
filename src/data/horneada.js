@@ -1,15 +1,15 @@
 /*
  * data/horneada.js
- * Horneadas: martes y viernes a las 10:00 hs.
+ * Horneadas: solo viernes a las 19:00 hs.
  */
 
 const HORNEADA_CONFIG = {
-  capacidad: 12,
+  capacidad: 20,
   productos: ['muf-001', 'muf-002', 'muf-003', 'muf-004', 'muf-005', 'muf-007'],
-  mensajeCierre: 'Pedidos hasta el mediodía.',
+  mensajeCierre: 'Pedidos hasta el jueves al mediodía.',
 }
 
-const DIAS_HORNEADA = [2, 5]
+const DIAS_HORNEADA = [5]
 const HORA_HORNEADA = 19
 
 /*
