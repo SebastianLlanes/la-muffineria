@@ -23,7 +23,7 @@ export default function HorneadaBanner() {
         <span className={styles.fireIcon} aria-hidden="true">🔥</span>
         <div className={styles.headerText}>
           <p className={styles.title}>
-            Próxima horneada — {diaHorneada} {horaHorneada}
+            Cada viernes, el horno enciende — {horaHorneada}
           </p>
           <p className={styles.cierre}>{horneada.mensajeCierre}</p>
         </div>
