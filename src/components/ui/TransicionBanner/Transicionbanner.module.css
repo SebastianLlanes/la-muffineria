@@ -1,0 +1,62 @@
+/*
+ * TransicionBanner.module.css
+ * Banner temporal de comunicación de cambio de metodología.
+ * Paleta: Verde Oliva + Crema, coherente con la marca.
+ */
+
+.banner {
+  width: 100%;
+  background-color: #6B8F4A;
+  padding: 10px 0;
+  z-index: 90;
+}
+
+.inner {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.icon {
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+
+.texto {
+  flex: 1;
+  font-size: 0.875rem;
+  color: #F5F0E8;
+  line-height: 1.4;
+  margin: 0;
+}
+
+.texto strong {
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.cerrar {
+  background: none;
+  border: none;
+  color: #F5F0E8;
+  font-size: 0.85rem;
+  cursor: pointer;
+  padding: 0.25rem 0.5rem;
+  opacity: 0.7;
+  flex-shrink: 0;
+  line-height: 1;
+  transition: opacity 0.2s ease;
+}
+
+.cerrar:hover {
+  opacity: 1;
+}
+
+@media (max-width: 600px) {
+  .texto {
+    font-size: 0.8rem;
+  }
+}

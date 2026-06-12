@@ -1,7 +1,8 @@
 import { useState } from 'react'
 import SplashScreen from './components/SplashScreen/SplashScreen'
 import { CartProvider } from '@context/CartContext'
-import Navbar      from '@components/layout/Navbar/Navbar'
+import Navbar           from '@components/layout/Navbar/Navbar'
+import TransicionBanner from '@components/ui/TransicionBanner/TransicionBanner'
 import Footer      from '@components/layout/Footer/Footer'
 import Hero        from '@components/sections/Hero/Hero'
 import About       from '@components/sections/About/About'
@@ -31,6 +32,7 @@ function App() {
       {!splashDone && <SplashScreen onComplete={handleSplashComplete} />}
       <div className={styles.app}>
         <Navbar onCartClick={openCart} />
+        <TransicionBanner />
 
         <main className={styles.main}>
           <Hero />
