@@ -26,6 +26,18 @@
 
 export const products = [
   {
+    id: "muf-008",
+    name: "Limón, Pera & Nueces",
+    category: "sin-gluten",
+    description:
+      "Harina de almendras, Pera jugosa, ralladura y jugo de Limón, Nueces. Suave, cítrico y con ese crunch que no falla.",
+    price: 2400,
+    image: "/images/limon-pera-nueces.png",
+    available: true,
+    tags: ["sin-gluten", "especial-temporada", "harina-de-almendras", "novedad", "sin-azucar-refinada"],
+    featured: true,
+  },
+  {
   id: "muf-007",
   name: "Banana Split",       // ← el nombre
   category: "especiales",
@@ -34,7 +46,7 @@ export const products = [
   image: "/images/bananasplit-img.png",  // ← la imagen real
   available: true,                     // ← true
   tags: ["sin-gluten", "novedad" ],                // ← los tags que correspondan
-  featured: false,
+  featured: true,
 },
   {
     id: "muf-006",
@@ -45,7 +57,7 @@ export const products = [
     price: 2400,
     image: "/images/carrot-cake.png",
     available: true,
-    tags: ["sin-gluten", "novedad", "almendras"],
+    tags: ["sin-gluten", "almendras"],
     featured: true,
   },
   {
@@ -63,7 +75,7 @@ export const products = [
       "harina-de-almendras",
       "especial-temporada",
     ],
-    featured: false,
+    featured: true,
   },
   {
     id: "muf-002",
@@ -99,7 +111,7 @@ export const products = [
     image: "/images/naranja-chips.png",
     available: true,
     tags: ["sin-gluten", "harina-de-almendras", "especial-temporada"],
-    featured: false,
+    featured: true,
   },
   {
     id: "muf-005",

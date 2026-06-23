@@ -1,14 +1,13 @@
 import { useState } from 'react'
 import { useCart } from '@hooks/useCart'
 import { formatPrice } from '@utils/formatPrice'
-import { isEnHorneada } from '@data/horneada'
 import styles from './ProductCard.module.css'
 
 export default function ProductCard({ product }) {
   const { addItem, precios } = useCart()
   const [size, setSize]   = useState('grande')
   const [added, setAdded] = useState(false)
-  const enHorneada = isEnHorneada(product.id)
+  const enHorneada = product.available
 
   // ── Modo "Próximamente" — render simplificado, sin lógica de carrito ──────
   if (product.proximamente) {

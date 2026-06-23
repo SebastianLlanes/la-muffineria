@@ -5,7 +5,6 @@
 
 const HORNEADA_CONFIG = {
   capacidad: 20,
-  productos: ['muf-001', 'muf-002', 'muf-003', 'muf-004', 'muf-005', 'muf-007'],
   mensajeCierre: 'Pedidos hasta el jueves al mediodía.',
 }
 
@@ -101,8 +100,4 @@ export function getHorneada() {
     fechaProxima: proxima.toISOString(),
     urgente: disponibles <= Math.ceil(capacidad * 0.25),
   }
-}
-
-export function isEnHorneada(productId) {
-  return HORNEADA_CONFIG.productos.includes(productId)
 }
