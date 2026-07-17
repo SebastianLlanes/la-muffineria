@@ -33,7 +33,7 @@ export const products = [
       "Harina de almendras, Pera jugosa, ralladura y jugo de Limón, Nueces. Suave, cítrico y con ese crunch que no falla.",
     price: 2400,
     image: "/images/limon-pera-nueces.png",
-    available: true,
+    available: false,
     tags: ["sin-gluten", "especial-temporada", "harina-de-almendras", "novedad", "sin-azucar-refinada"],
     featured: true,
   },
@@ -44,7 +44,7 @@ export const products = [
   description: "Banana en la masa, corazón de dulce de leche y frosting de coco. Un banana split que no necesita cuchara.",    // ← la descripción
   price: 2400,                         // ← el precio
   image: "/images/bananasplit-img.png",  // ← la imagen real
-  available: true,                     // ← true
+  available: false,                     // ← true
   tags: ["sin-gluten", "novedad" ],                // ← los tags que correspondan
   featured: true,
 },
@@ -56,7 +56,7 @@ export const products = [
       "Zanahoria, ralladura de naranja, canela y almendras garrapiñadas. Cálido, con textura y ese toque cítrico que no te esperás.",
     price: 2400,
     image: "/images/carrot-cake.png",
-    available: true,
+    available: false,
     tags: ["sin-gluten", "almendras"],
     featured: true,
   },
@@ -68,7 +68,7 @@ export const products = [
       "Cítrico, aromático y con esa textura única de las semillas de amapola.",
     price: 2400,
     image: "/images/limon-amapolas-45degree.png",
-    available: true,
+    available: false,
     tags: [
       "sin-gluten",
       "sin-azucar-refinada",
@@ -85,7 +85,7 @@ export const products = [
       "El increíble. No vas a poder creer que está hecho full lentejas. Toque generoso de chips de cacao amargo.",
     price: 2400,
     image: "/images/lenteja-cacao-chips.png",
-    available: true,
+    available: false,
     tags: ["sin-gluten", "alto-proteico", "base-legumbres"],
     featured: true,
   },
@@ -97,7 +97,7 @@ export const products = [
       "El hit de la casa. Harina de almendras, arándanos frescos y un toque de limón.",
     price: 2400,
     image: "/images/limon-arandanos.png",
-    available: true,
+    available: false,
     tags: ["sin-gluten", "harina-de-almendras", "especial-temporada"],
     featured: true,
   },
@@ -109,7 +109,7 @@ export const products = [
       "Ralladura de naranja fresca con chips de chocolate. Esponjoso, perfumado y sin culpa.",
     price: 2400,
     image: "/images/naranja-chips.png",
-    available: true,
+    available: false,
     tags: ["sin-gluten", "harina-de-almendras", "especial-temporada"],
     featured: true,
   },
@@ -121,7 +121,7 @@ export const products = [
       "Base de lentejas con cacao puro y nueces enteras. Húmedo e intenso.",
     price: 2400,
     image: "/images/lentejas-cacao-nueces.png",
-    available: true,
+    available: false,
     tags: ["sin-gluten", "alto-proteico", "base-legumbres"],
     featured: true,
   },
