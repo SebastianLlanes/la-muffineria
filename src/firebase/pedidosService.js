@@ -33,6 +33,7 @@ export async function registrarPedido({ cliente, items, total, applyDiscount, sa
       precioUnitario: item.precio,
       costoPorUnidad: 0,
       size:           item.size ?? null,
+      sinAzucar:      !!item.sinAzucar,
     })),
 
     totalVenta:    total,
