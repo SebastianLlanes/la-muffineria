@@ -16,6 +16,7 @@
  *   priceGlutenFree: number | null — precio variante sin TACC (si aplica)
  *   image:           string   — ruta relativa desde /public/images/
  *   available:       boolean  — si está disponible para pedir
+ *   aptoDiabeticoDisponible: boolean — si el producto tiene disponible la variante sin azúcar / apto diabético
  *   tags:            string[] — etiquetas para filtros adicionales
  *   featured:        boolean  — si aparece destacado en el Hero
  *   proximamente:    boolean  — si es un teaser de lanzamiento (imagen blureada, sin precio)
@@ -34,7 +35,8 @@ export const products = [
     price: 2400,
     image: "/images/limon-pera-nueces.png",
     available: true,
-    tags: ["sin-gluten", "especial-temporada", "harina-de-almendras", "novedad", "sin-azucar-refinada"],
+    aptoDiabeticoDisponible: true,
+    tags: ["sin-gluten", "especial-temporada", "harina-de-almendras", "novedad"],
     featured: true,
   },
   {
@@ -45,6 +47,7 @@ export const products = [
   price: 2400,                         // ← el precio
   image: "/images/bananasplit-img.png",  // ← la imagen real
   available: true,                     // ← true
+  aptoDiabeticoDisponible: true,
   tags: ["sin-gluten", "novedad" ],                // ← los tags que correspondan
   featured: true,
 },
@@ -57,6 +60,7 @@ export const products = [
     price: 2400,
     image: "/images/carrot-cake.png",
     available: true,
+    aptoDiabeticoDisponible: true,
     tags: ["sin-gluten", "almendras"],
     featured: true,
   },
@@ -69,12 +73,8 @@ export const products = [
     price: 2400,
     image: "/images/limon-amapolas-45degree.png",
     available: true,
-    tags: [
-      "sin-gluten",
-      "sin-azucar-refinada",
-      "harina-de-almendras",
-      "especial-temporada",
-    ],
+    aptoDiabeticoDisponible: true,
+    tags: ["sin-gluten", "harina-de-almendras", "especial-temporada"],
     featured: true,
   },
   {
@@ -86,6 +86,7 @@ export const products = [
     price: 2400,
     image: "/images/lenteja-cacao-chips.png",
     available: true,
+    aptoDiabeticoDisponible: true,
     tags: ["sin-gluten", "alto-proteico", "base-legumbres"],
     featured: true,
   },
@@ -98,6 +99,7 @@ export const products = [
     price: 2400,
     image: "/images/limon-arandanos.png",
     available: true,
+    aptoDiabeticoDisponible: true,
     tags: ["sin-gluten", "harina-de-almendras", "especial-temporada"],
     featured: true,
   },
@@ -110,6 +112,7 @@ export const products = [
     price: 2400,
     image: "/images/naranja-chips.png",
     available: true,
+    aptoDiabeticoDisponible: true,
     tags: ["sin-gluten", "harina-de-almendras", "especial-temporada"],
     featured: true,
   },
@@ -122,6 +125,7 @@ export const products = [
     price: 2400,
     image: "/images/lentejas-cacao-nueces.png",
     available: true,
+    aptoDiabeticoDisponible: true,
     tags: ["sin-gluten", "alto-proteico", "base-legumbres"],
     featured: true,
   },

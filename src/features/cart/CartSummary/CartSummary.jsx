@@ -5,15 +5,14 @@ import { sendWhatsAppOrder } from '@utils/whatsapp'
 import styles from './CartSummary.module.css'
 
 export default function CartSummary({ onClose }) {
-  const { items, clearCart, hasMixed, isBox, boxTotal } = useCart()
+  const { items, clearCart, applyDiscount, boxTotal } = useCart()
   const [note, setNote]       = useState('')
   const [sending, setSending] = useState(false)
 
-  function handleSendOrder() {
+ function handleSendOrder() {
     if (items.length === 0) return
     setSending(true)
     setTimeout(function executeOrder() {
-      const applyDiscount = isBox && !hasMixed
       sendWhatsAppOrder(items, applyDiscount, note)
       clearCart()
       setNote('')

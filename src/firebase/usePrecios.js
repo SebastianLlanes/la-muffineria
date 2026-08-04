@@ -8,6 +8,8 @@ const PRECIOS_DEFAULT = {
   precioNormalMediano:   2000,
   precioDescuentoMediano:1800,
   umbralDescuento:       6,
+  recargoAptoDiabeticoGrande:  450,
+  recargoAptoDiabeticoMediano: 350,
 }
 
 export function usePrecios() {

@@ -6,6 +6,7 @@ import styles from './ProductCard.module.css'
 export default function ProductCard({ product }) {
   const { addItem, precios } = useCart()
   const [size, setSize]   = useState('grande')
+  const [sinAzucar, setSinAzucar] = useState(false)
   const [added, setAdded] = useState(false)
   const enHorneada = product.available
 
@@ -58,31 +59,37 @@ export default function ProductCard({ product }) {
 
   // ── Card normal ───────────────────────────────────────────────────────────
 
-  const SIZE_CONFIG = {
+const SIZE_CONFIG = {
     grande:  {
-      normalPrice:   precios.precioNormalGrande,
-      discountPrice: precios.precioDescuentoGrande,
+      normalPrice:          precios.precioNormalGrande,
+      discountPrice:        precios.precioDescuentoGrande,
+      recargoAptoDiabetico: precios.recargoAptoDiabeticoGrande,
       grams: '160g'
     },
     mediano: {
-      normalPrice:   precios.precioNormalMediano,
-      discountPrice: precios.precioDescuentoMediano,
+      normalPrice:          precios.precioNormalMediano,
+      discountPrice:        precios.precioDescuentoMediano,
+      recargoAptoDiabetico: precios.recargoAptoDiabeticoMediano,
       grams: '90g'
     },
   }
 
-  const config = SIZE_CONFIG[size]
+  const config = SIZE_CONFIG[size];
+  const finalPrice =
+    config.normalPrice + (sinAzucar ? config.recargoAptoDiabetico : 0);
 
   function handleAdd() {
     if (!product.available || added) return
+    const surcharge = sinAzucar ? config.recargoAptoDiabetico : 0
     addItem({
       ...product,
-      id:            `${product.id}-${size}`,
+      id:            `${product.id}-${size}${sinAzucar ? '-sin-azucar' : ''}`,
       productId:     product.id,
       size,
-      normalPrice:   config.normalPrice,
-      discountPrice: config.discountPrice,
-      price:         config.normalPrice,
+      sinAzucar,
+      normalPrice:   config.normalPrice + surcharge,
+      discountPrice: config.discountPrice + surcharge,
+      price:         config.normalPrice + surcharge,
     })
     setAdded(true)
     setTimeout(function resetAdded() { setAdded(false) }, 1500)
@@ -90,7 +97,7 @@ export default function ProductCard({ product }) {
 
   return (
     <article
-      className={`${styles.card} ${!product.available ? styles.unavailable : ''}`}
+      className={`${styles.card} ${!product.available ? styles.unavailable : ""}`}
       aria-label={`Muffin ${product.name}`}
     >
       {/* ── Imagen ── */}
@@ -101,7 +108,7 @@ export default function ProductCard({ product }) {
           className={styles.image}
           loading="lazy"
           onError={function handleImgError(e) {
-            e.currentTarget.src = '/images/placeholder-muffin.jpg'
+            e.currentTarget.src = "/images/placeholder-muffin.jpg";
           }}
         />
         <div className={styles.chipsStack}>
@@ -111,10 +118,10 @@ export default function ProductCard({ product }) {
           {enHorneada && product.available && (
             <div className={styles.chipHorneada}>🔥 En esta horneada</div>
           )}
-          {product.tags.includes('especial-temporada') && product.available && (
+          {product.tags.includes("especial-temporada") && product.available && (
             <div className={styles.chipSpecial}>🌿 Temporada</div>
           )}
-          {product.tags.includes('novedad') && product.available && (
+          {product.tags.includes("novedad") && product.available && (
             <div className={styles.chipNew}>🆕 Novedad</div>
           )}
         </div>
@@ -127,35 +134,66 @@ export default function ProductCard({ product }) {
 
         {/* Tags */}
         <div className={styles.tags}>
-          {product.tags.includes('vegano') && (
+          {product.tags.includes("vegano") && (
             <span className={`${styles.tag} ${styles.tagVegan}`}>Vegano</span>
           )}
-          {product.tags.includes('sin-azucar-refinada') && (
-            <span className={`${styles.tag} ${styles.tagSugar}`}>Sin azúcar ref.</span>
+          {product.tags.includes("harina-de-almendras") && (
+            <span className={`${styles.tag} ${styles.tagAlmond}`}>
+              Harina de almendras
+            </span>
           )}
-          {product.tags.includes('harina-de-almendras') && (
-            <span className={`${styles.tag} ${styles.tagAlmond}`}>Harina de almendras</span>
+          {product.tags.includes("alto-proteico") && (
+            <span className={`${styles.tag} ${styles.tagProtein}`}>
+              Alto en proteína
+            </span>
           )}
-          {product.tags.includes('alto-proteico') && (
-            <span className={`${styles.tag} ${styles.tagProtein}`}>Alto en proteína</span>
+          {product.tags.includes("base-legumbres") && (
+            <span className={`${styles.tag} ${styles.tagLegumes}`}>
+              Base de legumbres
+            </span>
           )}
-          {product.tags.includes('base-legumbres') && (
-            <span className={`${styles.tag} ${styles.tagLegumes}`}>Base de legumbres</span>
+          {product.tags.includes("sin-gluten") && (
+            <span className={`${styles.tag} ${styles.tagSinGluten}`}>
+              Sin gluten
+            </span>
           )}
-          {product.tags.includes('sin-gluten') && (
-            <span className={`${styles.tag} ${styles.tagSinGluten}`}>Sin gluten</span>
-          )}
-          {product.tags.includes('almendras') && (
-            <span className={`${styles.tag} ${styles.tagAlmendras}`}>Almendras</span>
+          {product.tags.includes("almendras") && (
+            <span className={`${styles.tag} ${styles.tagAlmendras}`}>
+              Almendras
+            </span>
           )}
         </div>
 
+         {/* Toggle apto diabético — control propio, no un tag informativo */}
+        {product.aptoDiabeticoDisponible && (
+          <button
+            type="button"
+            className={`${styles.diabeticToggle} ${sinAzucar ? styles.diabeticToggleActive : ''}`}
+            onClick={() => setSinAzucar(prev => !prev)}
+            aria-pressed={sinAzucar}
+          >
+            <span className={styles.diabeticToggleCheck} aria-hidden="true">
+              {sinAzucar && <CheckIcon />}
+            </span>
+            <span className={styles.diabeticToggleLabel}>
+              Apto diabético (sin azúcar)
+            </span>
+            <span className={styles.diabeticToggleSurcharge}>
+              +{formatPrice(config.recargoAptoDiabetico)}
+            </span>
+          </button>
+        )}
+
         {/* Toggle de tamaño */}
-        <div className={styles.sizeToggle} role="group" aria-label="Tamaño del muffin">
+        <div
+          className={styles.sizeToggle}
+          role="group"
+          aria-label="Tamaño del muffin"
+        >
           {Object.entries(SIZE_CONFIG).map(([key, cfg]) => (
             <button
               key={key}
-              className={`${styles.sizeBtn} ${size === key ? styles.sizeBtnActive : ''}`}
+              className={`${styles.sizeBtn} ${size === key ? styles.sizeBtnActive : ""}`}
               onClick={() => setSize(key)}
               aria-pressed={size === key}
             >
@@ -168,26 +206,30 @@ export default function ProductCard({ product }) {
         {/* Footer: precio + botón */}
         <div className={styles.footer}>
           <div className={styles.priceBlock}>
-            <span className={styles.price}>{formatPrice(config.normalPrice)}</span>
+            <span className={styles.price}>{formatPrice(finalPrice)}</span>
           </div>
           <button
-            className={`${styles.addButton} ${added ? styles.addButtonSuccess : ''}`}
+            className={`${styles.addButton} ${added ? styles.addButtonSuccess : ""}`}
             onClick={handleAdd}
             disabled={!product.available}
             aria-label={`Agregar ${product.name} al carrito`}
           >
             {!product.available ? (
-              'Sin stock'
+              "Sin stock"
             ) : added ? (
-              <><CheckIcon /> Agregado</>
+              <>
+                <CheckIcon /> Agregado
+              </>
             ) : (
-              <><PlusIcon /> Agregar</>
+              <>
+                <PlusIcon /> Agregar
+              </>
             )}
           </button>
         </div>
       </div>
     </article>
-  )
+  );
 }
 
 // ── Íconos ───────────────────────────────────────────────────────────────────

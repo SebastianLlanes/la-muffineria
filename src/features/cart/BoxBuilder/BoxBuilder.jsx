@@ -26,7 +26,7 @@ export function BoxBuilder({ onClose }) {
   const remaining    = DISCOUNT_THRESHOLD - itemCount
 
 async function handleWhatsApp() {
-  const url = buildWhatsAppURL(items, applyDiscount)
+  const url = buildWhatsAppURL(items, applyDiscount, '', nombreCliente.trim())
 
   // window.open ANTES del await — debe ejecutarse en el contexto
   // directo del click o el browser lo bloquea como popup
@@ -36,11 +36,12 @@ async function handleWhatsApp() {
     await registrarPedido({
       cliente: nombreCliente.trim() || 'Sin nombre',
       items: items.map(item => ({
-        id:       item.id,
-        name:     item.name,
-        quantity: item.quantity,
-        size:     item.size,
-        precio:   applyDiscount ? item.discountPrice : item.normalPrice,
+        id:        item.id,
+        name:      item.name,
+        quantity:  item.quantity,
+        size:      item.size,
+        sinAzucar: !!item.sinAzucar,
+        precio:    applyDiscount ? item.discountPrice : item.normalPrice,
       })),
       total:         boxTotal,
       applyDiscount,
@@ -98,9 +99,9 @@ async function handleWhatsApp() {
           {visibleUnits.map((item, i) => (
             <div
               key={i}
-              className={styles.bagThumb}
+              className={`${styles.bagThumb} ${item.sinAzucar ? styles.bagThumbDiabetico : ''}`}
               style={{ "--i": i }}
-              title={item.name}
+              title={item.sinAzucar ? `${item.name} — Apto diabético` : item.name}
             >
               <img src={item.image} alt={item.name} />
             </div>
@@ -133,14 +134,19 @@ async function handleWhatsApp() {
             ? item.discountPrice
             : item.normalPrice;
           return (
-            <li key={item.id} className={styles.itemRow}>
+            <li key={item.id} className={`${styles.itemRow} ${item.sinAzucar ? styles.itemRowDiabetico : ''}`}>
               <img
                 src={item.image}
                 alt={item.name}
                 className={styles.itemImg}
               />
               <div className={styles.itemInfo}>
-                <span className={styles.itemName}>{item.name}</span>
+                <span className={styles.itemNameRow}>
+                  <span className={styles.itemName}>{item.name}</span>
+                  {item.sinAzucar && (
+                    <span className={styles.itemDiabeticBadge} title="Apto diabético">🚫🍬</span>
+                  )}
+                </span>
                 <span className={styles.itemMeta}>
                   {item.size === "mediano" ? "90g" : "160g"}
                   {" · "}${unitPrice.toLocaleString("es-AR")} c/u
