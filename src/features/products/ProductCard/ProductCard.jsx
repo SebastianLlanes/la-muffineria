@@ -176,7 +176,7 @@ const SIZE_CONFIG = {
               {sinAzucar && <CheckIcon />}
             </span>
             <span className={styles.diabeticToggleLabel}>
-              Apto diabético (sin azúcar)
+              Apto diabético 
             </span>
             <span className={styles.diabeticToggleSurcharge}>
               +{formatPrice(config.recargoAptoDiabetico)}
