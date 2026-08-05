@@ -47,7 +47,7 @@ export const products = [
   price: 2400,                         // ← el precio
   image: "/images/bananasplit-img.png",  // ← la imagen real
   available: true,                     // ← true
-  aptoDiabeticoDisponible: true,
+  aptoDiabeticoDisponible: false,
   tags: ["sin-gluten", "novedad" ],                // ← los tags que correspondan
   featured: true,
 },
