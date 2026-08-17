@@ -1,0 +1,67 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Valida que un pedido sin auth (origen web) tenga EXACTAMENTE
+    // la forma que arma registrarPedido() en pedidosService.js —
+    // ni un campo de más, ni un tipo distinto.
+    function isValidWebPedido(data) {
+      return data.keys().hasOnly([
+        'origen', 'estado', 'creadoEn', 'fecha', 'fechaEntrega',
+        'cliente', 'tipoCliente', 'telefono',
+        'items', 'totalVenta', 'totalCosto', 'totalGanancia', 'margen',
+        'applyDiscount', 'savings', 'notas'
+      ])
+      // Campos literales que registrarPedido() siempre manda igual —
+      // si no coinciden exacto, no es un pedido web real.
+      && data.origen == 'web'
+      && data.estado == 'pendiente'
+      && data.creadoEn == request.time
+      && data.fecha == request.time
+      && data.fechaEntrega == null
+      && data.tipoCliente == 'particular'
+      && data.telefono == ''
+      && data.notas == ''
+      && data.totalCosto == 0
+      && data.totalGanancia == 0
+      && data.margen == 0
+
+      // Campos que sí vienen del cliente — acá va el tipado/rango.
+      && data.cliente is string
+      && data.cliente.size() > 0
+      && data.cliente.size() <= 100
+
+      && data.items is list
+      && data.items.size() > 0
+      && data.items.size() <= 50   // línea de pedido, no unidades de muffin
+
+      && data.totalVenta is number
+      && data.totalVenta >= 0
+      && data.totalVenta <= 200000  // ~4x el pedido real más grande ($50.000)
+
+      && data.applyDiscount is bool
+
+      && data.savings is number
+      && data.savings >= 0
+    }
+
+    match /config/{docId} {
+      allow read: if true;
+      allow write: if request.auth != null;
+    }
+
+    match /pedidos/{pedidoId} {
+      // Dos caminos, sin tocar el comportamiento del admin autenticado:
+      // - sin auth: solo si matchea EXACTO el esquema de un pedido web real
+      // - con auth: como antes, sin restricción extra (agregarPedido del
+      //   admin ya solo es alcanzable logueado — ver App.jsx/ProtectedRoutes)
+      allow create: if isValidWebPedido(request.resource.data)
+                       || request.auth != null;
+      allow read, update, delete: if request.auth != null;
+    }
+
+    match /{document=**} {
+      allow read, write: if request.auth != null;
+    }
+  }
+}
