@@ -3,6 +3,7 @@ import SplashScreen from './components/SplashScreen/SplashScreen'
 import { CartProvider } from '@context/CartContext'
 import Navbar           from '@components/layout/Navbar/Navbar'
 import TransicionBanner from '@components/ui/TransicionBanner/Transicionbanner'
+import MuffinCounterWidget from '@components/ui/MuffinCounterWidget/MuffinCounterWidget'
 import Footer      from '@components/layout/Footer/Footer'
 import Hero        from '@components/sections/Hero/Hero'
 import About       from '@components/sections/About/About'
@@ -35,6 +36,7 @@ function App() {
         <TransicionBanner />
 
         <main className={styles.main}>
+          <MuffinCounterWidget />
           <Hero />
           <ProductGrid />
           <About />
