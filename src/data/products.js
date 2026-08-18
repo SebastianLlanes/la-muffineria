@@ -48,7 +48,7 @@ export const products = [
   image: "/images/bananasplit-img.png",  // ← la imagen real
   available: true,                     // ← true
   aptoDiabeticoDisponible: false,
-  tags: ["sin-gluten", "novedad" ],                // ← los tags que correspondan
+  tags: ["sin-gluten"],                // ← los tags que correspondan
   featured: true,
 },
   {
