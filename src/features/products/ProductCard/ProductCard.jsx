@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useCart } from '@hooks/useCart'
 import { formatPrice } from '@utils/formatPrice'
+import { resolverPrecio } from '../../../firebase/usePrecios'
 import styles from './ProductCard.module.css'
 
 export default function ProductCard({ product }) {
@@ -61,14 +62,14 @@ export default function ProductCard({ product }) {
 
 const SIZE_CONFIG = {
     grande:  {
-      normalPrice:          precios.precioNormalGrande,
-      discountPrice:        precios.precioDescuentoGrande,
+      normalPrice:          resolverPrecio(precios, product.id, 'grande'),
+      discountPrice:        resolverPrecio(precios, product.id, 'grande', { descuento: true }),
       recargoAptoDiabetico: precios.recargoAptoDiabeticoGrande,
       grams: '160g'
     },
     mediano: {
-      normalPrice:          precios.precioNormalMediano,
-      discountPrice:        precios.precioDescuentoMediano,
+      normalPrice:          resolverPrecio(precios, product.id, 'mediano'),
+      discountPrice:        resolverPrecio(precios, product.id, 'mediano', { descuento: true }),
       recargoAptoDiabetico: precios.recargoAptoDiabeticoMediano,
       grams: '90g'
     },

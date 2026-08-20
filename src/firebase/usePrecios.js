@@ -10,6 +10,20 @@ const PRECIOS_DEFAULT = {
   umbralDescuento:       6,
   recargoAptoDiabeticoGrande:  450,
   recargoAptoDiabeticoMediano: 350,
+  overridesPorProducto:  {},
+}
+
+export function resolverPrecio(precios, productId, tamano, { descuento = false } = {}) {
+  const sufijo = tamano === 'grande' ? 'Grande' : 'Mediano'
+  const campo = (descuento ? 'precioDescuento' : 'precioNormal') + sufijo
+  const especial = precios.overridesPorProducto?.[productId]?.[campo]
+
+  if (especial !== undefined && (typeof especial !== 'number' || Number.isNaN(especial))) {
+    console.warn(`Override de precio inválido en "${productId}.${campo}" — se usó el precio global en su lugar`, especial)
+    return precios[campo]
+  }
+
+  return especial ?? precios[campo]
 }
 
 export function usePrecios() {
