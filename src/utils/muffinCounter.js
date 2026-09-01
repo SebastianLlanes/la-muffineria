@@ -37,7 +37,7 @@ function seedForWeek(weekIndex) {
 // Total "horneado" esa semana (180-210), determinístico
 function weeklyTotalForWeek(weekIndex) {
   const rand = mulberry32(seedForWeek(weekIndex));
-  return 180 + Math.floor(rand() * 31); // 31 valores: 180..210
+  return 150 + Math.floor(rand() * 31); // 31 valores: 150..180
 }
 
 const WEEK_TOTAL_WEIGHT = HOURLY_WEIGHTS.reduce((a, b) => a + b, 0) * 7;
