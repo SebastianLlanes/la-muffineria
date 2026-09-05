@@ -36,19 +36,19 @@ export const products = [
     image: "/images/limon-pera-nueces.png",
     available: true,
     aptoDiabeticoDisponible: true,
-    tags: ["sin-gluten", "especial-temporada", "harina-de-almendras", "novedad"],
+    tags: ["sin-gluten", "especial-temporada", "harina-de-almendras"],
     featured: true,
   },
   {
   id: "muf-007",
-  name: "Banana Split",       // ← el nombre
+  name: "Banana Split",      
   category: "especiales",
-  description: "Banana en la masa, corazón de dulce de leche y frosting de coco. Un banana split que no necesita cuchara.",    // ← la descripción
-  price: 2400,                         // ← el precio
-  image: "/images/bananasplit-img.png",  // ← la imagen real
-  available: true,                     // ← true
+  description: "Banana en la masa, corazón de dulce de leche y frosting de coco. Un banana split que no necesita cuchara.",   
+  price: 2400,                        
+  image: "/images/bananasplit-img.png",  
+  available: true,                     
   aptoDiabeticoDisponible: false,
-  tags: ["sin-gluten"],                // ← los tags que correspondan
+  tags: ["sin-gluten"],                
   featured: true,
 },
   {
