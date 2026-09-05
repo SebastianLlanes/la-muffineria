@@ -361,6 +361,30 @@
   color: var(--color-cacao-600, #fdfdfd);
   border: 1px solid var(--color-cacao-200, #d6c4b0);
 }
+
+.tagBeet {
+  background-color: var(--color-rosa-100, #f3dde2);
+  color: var(--color-rosa-700, #7a3a49);
+  border: 1px solid var(--color-rosa-300, #d9a8b3);
+}
+
+.tagWhiteChoc {
+  background-color: #FBF6EE;
+  color: #8C6A46;
+  border: 1px solid #E8D9C0;
+}
+
+.tagDarkChoc {
+  background-color: var(--color-cacao-800, #3B2D1F);
+  color: var(--color-crema, #F5F0E8);
+  border: 1px solid var(--color-cacao-800, #3B2D1F);
+}
+
+.tagHazelnut {
+  background-color: var(--color-trigo-100, #f0e2c9);
+  color: var(--color-trigo-700, #8a6a35);
+  border: 1px solid var(--color-trigo-300, #dcbb85);
+}
 /* ── Toggle apto diabético (control propio, no un tag) ── */
 .diabeticToggle {
   display: flex;

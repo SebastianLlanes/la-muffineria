@@ -52,7 +52,7 @@ export const products = [
   //   image: "/images/red-velvet.png",
   //   available: true,
   //   aptoDiabeticoDisponible: true,
-  //   tags: ["remolacha", "chocolate-blanco", "harina-de-almendras", "novedad"],
+  //   tags: ["remolacha", "harina-de-almendras", "chocolate-blanco", "novedad"],
   //   featured: true,
   // },
   // {
@@ -65,7 +65,7 @@ export const products = [
   //   image: "/images/red-velvet-dark.png",
   //   available: true,
   //   aptoDiabeticoDisponible: true,
-  //   tags: ["remolacha", "chocolate-amargo", "avellanas", "novedad"],
+  //   tags: ["remolacha", "harina-de-almendras", "chocolate-amargo", "avellanas", "novedad"],
   //   featured: true,
   // },
   {

@@ -163,6 +163,26 @@ const SIZE_CONFIG = {
               Almendras
             </span>
           )}
+                    {product.tags.includes("remolacha") && (
+            <span className={`${styles.tag} ${styles.tagBeet}`}>
+              Remolacha
+            </span>
+          )}
+          {product.tags.includes("chocolate-blanco") && (
+            <span className={`${styles.tag} ${styles.tagWhiteChoc}`}>
+              Chocolate blanco
+            </span>
+          )}
+          {product.tags.includes("chocolate-amargo") && (
+            <span className={`${styles.tag} ${styles.tagDarkChoc}`}>
+              Chocolate amargo
+            </span>
+          )}
+          {product.tags.includes("avellanas") && (
+            <span className={`${styles.tag} ${styles.tagHazelnut}`}>
+              Avellanas
+            </span>
+          )}
         </div>
 
          {/* Toggle apto diabético — control propio, no un tag informativo */}
