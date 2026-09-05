@@ -42,6 +42,32 @@ export const products = [
     tags: [],
     featured: false,
   },
+  // {
+  //   id: "muf-009",
+  //   name: "Red Velvet",
+  //   category: "especiales",
+  //   description:
+  //     "Harina de almendras a base de remolacha, con chips de chocolate blanco. No es magia. Es remolacha.",
+  //   price: 3500,
+  //   image: "/images/red-velvet.png",
+  //   available: true,
+  //   aptoDiabeticoDisponible: true,
+  //   tags: ["remolacha", "chocolate-blanco", "harina-de-almendras", "novedad"],
+  //   featured: true,
+  // },
+  // {
+  //   id: "muf-010",
+  //   name: "Red Velvet Dark",
+  //   category: "especiales",
+  //   description:
+  //     "La versión intensa: chocolate amargo y avellanas como protagonistas, sin chips.",
+  //   price: 4300,
+  //   image: "/images/red-velvet-dark.png",
+  //   available: true,
+  //   aptoDiabeticoDisponible: true,
+  //   tags: ["remolacha", "chocolate-amargo", "avellanas", "novedad"],
+  //   featured: true,
+  // },
   {
     id: "muf-008",
     name: "Limón, Pera & Nueces",
