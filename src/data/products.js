@@ -26,6 +26,22 @@
 
 
 export const products = [
+  // Agregar al array products (posición no importa, ProductGrid lo pone primero solo)
+  {
+    id: "muf-009",
+    name: "???",
+    category: "especiales",
+    description: "",
+    teaserText:
+      "Dos versiones de un mismo secreto. Elegís bando cuando lleguen.",
+    price: 0,
+    image: "/images/placeholder-muffin.jpg",
+    available: false,
+    aptoDiabeticoDisponible: false,
+    proximamente: true,
+    tags: [],
+    featured: false,
+  },
   {
     id: "muf-008",
     name: "Limón, Pera & Nueces",
@@ -40,17 +56,18 @@ export const products = [
     featured: true,
   },
   {
-  id: "muf-007",
-  name: "Banana Split",      
-  category: "especiales",
-  description: "Banana en la masa, corazón de dulce de leche y frosting de coco. Un banana split que no necesita cuchara.",   
-  price: 2400,                        
-  image: "/images/bananasplit-img.png",  
-  available: true,                     
-  aptoDiabeticoDisponible: false,
-  tags: ["sin-gluten"],                
-  featured: true,
-},
+    id: "muf-007",
+    name: "Banana Split",
+    category: "especiales",
+    description:
+      "Banana en la masa, corazón de dulce de leche y frosting de coco. Un banana split que no necesita cuchara.",
+    price: 2400,
+    image: "/images/bananasplit-img.png",
+    available: true,
+    aptoDiabeticoDisponible: false,
+    tags: ["sin-gluten"],
+    featured: true,
+  },
   {
     id: "muf-006",
     name: "Carrot Cake",
@@ -129,7 +146,6 @@ export const products = [
     tags: ["sin-gluten", "alto-proteico", "base-legumbres"],
     featured: true,
   },
-
 ];
 
 /**
