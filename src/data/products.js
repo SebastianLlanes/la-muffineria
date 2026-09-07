@@ -49,7 +49,7 @@ export const products = [
     description:
       "Harina de almendras a base de remolacha, con chips de chocolate blanco. No es magia. Es remolacha.",
     price: 3500,
-    image: "/public/images/redvelvet.jpg",
+    image: "/images/redvelvet.jpg",
     available: true,
     aptoDiabeticoDisponible: true,
     tags: ["remolacha", "harina-de-almendras", "chocolate-blanco", "novedad"],
@@ -62,7 +62,7 @@ export const products = [
     description:
       "La versión intensa: chocolate amargo y almendras tostadas como protagonistas, sin chips.",
     price: 4300,
-    image: "/public/images/darkredvelvet.jpg",
+    image: "/images/darkredvelvet.jpg",
     available: true,
     aptoDiabeticoDisponible: true,
     tags: ["remolacha", "harina-de-almendras", "chocolate-amargo", "novedad"],
