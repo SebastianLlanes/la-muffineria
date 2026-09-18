@@ -141,7 +141,7 @@ export const products = [
       "El hit de la casa. Harina de almendras, arándanos frescos y un toque de limón.",
     price: 2400,
     image: "/images/limon-arandanos.png",
-    available: true,
+    available: false,
     aptoDiabeticoDisponible: true,
     tags: ["sin-gluten", "harina-de-almendras", "especial-temporada"],
     featured: true,
