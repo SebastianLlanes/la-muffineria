@@ -5,7 +5,7 @@
 
 const HORNEADA_CONFIG = {
   capacidad: 20,
-  mensajeCierre: 'Pedidos hasta el jueves al mediodía.',
+  mensajeCierre: 'Pedidos hasta el viernes al mediodía.',
 }
 
 const DIAS_HORNEADA = [5]
